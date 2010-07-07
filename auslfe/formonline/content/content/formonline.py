@@ -1,17 +1,16 @@
 """Definition of the Form Online content type
 """
 
-from zope.interface import implements#, directlyProvides
+from zope.interface import implements
 
 from Products.Archetypes import atapi
-from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
+from Products.ATContentTypes.content.document import ATDocument, ATDocumentSchema
 
-#from auslfe.formonline.content import formonline_contentMessageFactory as _
 from auslfe.formonline.content.interfaces import IFormOnline
 from auslfe.formonline.content.config import PROJECTNAME
 
-FormOnlineSchema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
+FormOnlineSchema = ATDocumentSchema.copy() + atapi.Schema((
 
     # -*- Your Archetypes field definitions here ... -*-
 
@@ -25,7 +24,7 @@ FormOnlineSchema['description'].storage = atapi.AnnotationStorage()
 
 schemata.finalizeATCTSchema(FormOnlineSchema, moveDiscussion=False)
 
-class FormOnline(base.ATCTContent):
+class FormOnline(ATDocument):
     """Description of the Example Type"""
     implements(IFormOnline)
 

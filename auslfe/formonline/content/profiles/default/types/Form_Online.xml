@@ -4,18 +4,18 @@
    i18n:domain="auslfe.formonline.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <property name="title" i18n:translate="">Form Online</property>
   <property name="description"
-    i18n:translate="">Description of the Example Type</property>
+    i18n:translate=""></property>
   <property name="content_meta_type">Form Online</property>
-  <property name="content_icon">document_icon.gif</property>
+  <property name="content_icon">++resource++auslfe.formonline.content.images/downloaddocument.gif</property>
   <property name="product">auslfe.formonline.content</property>
   <property name="factory">addFormOnline</property>
   <property name="immediate_view">atct_edit</property>
   <property name="global_allow">True</property>
   <property name="filter_content_types">False</property>
   <property name="allow_discussion">False</property>
-  <property name="default_view">base_view</property>
+  <property name="default_view">document_view</property>
   <property name="view_methods">
-    <element value="base_view" />
+    <element value="document_view" />
   </property>
   <alias from="(Default)" to="(dynamic view)" />
   <alias from="edit" to="atct_edit" />
