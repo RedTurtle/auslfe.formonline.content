@@ -5,5 +5,5 @@ PROJECTNAME = 'auslfe.formonline.content'
 
 ADD_PERMISSIONS = {
     # -*- extra stuff goes here -*-
-    'FormOnline': 'auslfe.formonline.content: Add Form Online',
+    'FormOnline': 'auslfe.formonline.content: Add FormOnline',
 }

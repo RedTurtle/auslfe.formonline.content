@@ -1,4 +1,4 @@
-"""Definition of the Form Online content type
+"""Definition of the FormOnline content type
 """
 
 from zope.interface import implements
@@ -28,7 +28,7 @@ class FormOnline(ATDocument):
     """Description of the Example Type"""
     implements(IFormOnline)
 
-    meta_type = "Form Online"
+    meta_type = "FormOnline"
     schema = FormOnlineSchema
 
     title = atapi.ATFieldProperty('title')

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<object name="Form Online"
+<object name="FormOnline"
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="auslfe.formonline.content" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <property name="title" i18n:translate="">Form Online</property>
   <property name="description"
     i18n:translate=""></property>
-  <property name="content_meta_type">Form Online</property>
+  <property name="content_meta_type">FormOnline</property>
   <property name="content_icon">++resource++auslfe.formonline.content.images/downloaddocument.gif</property>
   <property name="product">auslfe.formonline.content</property>
   <property name="factory">addFormOnline</property>
