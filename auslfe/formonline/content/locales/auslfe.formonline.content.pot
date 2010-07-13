@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-07-07 15:01+0000\n"
+"POT-Creation-Date: 2010-07-13 12:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: auslfe.formonline.content\n"
 
-#: ./profiles/default/types/Form_Online.xml
+#: ./profiles/default/types/FormOnline.xml
 msgid "Form Online"
 msgstr ""
 

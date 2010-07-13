@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-07-13 12:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Federica D'Elia <federica.delia@redturtle.it>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: it\n"
+"Language-Name: Italian\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Approve content"
+msgstr "Approva il contenuto"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Dispatch"
+msgstr "Evaso"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Dispatch content"
+msgstr "Evadi il contenuto"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Form Online Workflow"
+msgstr "Controllo di flusso della Modulistica Online"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Pending Approval"
+msgstr "Attesa di approvazione"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Pending Dispatch"
+msgstr "Attesa di evasione"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Private"
+msgstr "Privato"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Retract content"
+msgstr "Ritrai il contenuto"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Submit for approval"
+msgstr "Sottometti per l'approvazione"
+
+#: ./profiles/default/workflows/formonline_workflow/definition.xml
+msgid "Workflow for Form Online documents."
+msgstr "Controllo di flusso per i documenti Modulistica Online."
