@@ -1,12 +1,10 @@
 from Products.CMFCore.utils import getToolByName
+from Acquisition import aq_inner, aq_base, aq_parent
 
 def formOnlineNotificationMail(formonline,event):
     """
     When the state of a Form Online changes in one of the states in ['pending_approval','pending_dispatch'], send a notification email.
     """
-    
-    #import pdb;pdb.set_trace()
-    
     portal_workflow = getToolByName(formonline,'portal_workflow')
     review_state = portal_workflow.getInfoFor(formonline,'review_state')
     
@@ -19,19 +17,78 @@ def formOnlineNotificationMail(formonline,event):
     
     if addresses:
         sendNotificationMail(formonline,review_state,addresses)
+    
+def get_inherited(formonline):
+    """Return True if local roles are inherited here.
+    """
+    if getattr(aq_base(formonline), '__ac_local_roles_block__', None):
+        return False
+    return True
+
+def get_global_roles(formonline):
+    """Returns a tuple with the acquired local roles."""
+    formonline = aq_inner(formonline)
+    
+    if not get_inherited(formonline):
+        return []
+    
+    portal = getToolByName(formonline, 'portal_url').getPortalObject()
+    result = []
+    
+    local_roles = formonline.acl_users._getLocalRolesForDisplay(formonline)
+    for user, roles, role_type, name in local_roles:
+        result.append([user, list(roles), role_type, name])
+    
+    cont = True
+    if portal != formonline:
+        parent = aq_parent(formonline)
+        while cont:
+            if not getattr(parent, 'acl_users', False):
+                break
+            userroles = parent.acl_users._getLocalRolesForDisplay(parent)
+            for user, roles, role_type, name in userroles:
+                # Find user in result
+                found = 0
+                for user2, roles2, type2, name2 in result:
+                    if user2 == user:
+                        # Check which roles must be added to roles2
+                        for role in roles:
+                            if not role in roles2:
+                                roles2.append(role)
+                        found = 1
+                        break
+                if found == 0:
+                    # Add it to result and make sure roles is a list so
+                    # we may append and not overwrite the loop variable
+                    result.append([user, list(roles), role_type, name])
+            if parent == portal:
+                cont = False
+            elif not get_inherited(parent):
+                # Role acquired check here
+                cont = False
+            else:
+                parent = aq_parent(parent)
+
+    # Tuplize all inner roles
+    for pos in range(len(result)-1,-1,-1):
+        result[pos][1] = tuple(result[pos][1])
+        result[pos] = tuple(result[pos])
+
+    return tuple(result)
 
 def getAddresses(role,formonline):
     """Returns a list of email of users with a specific role on a Form Online content, from a local roles structure."""
-    pm = getToolByName(formonline,'portal_membership')    
-    local_roles = formonline.get_local_roles()
+    pm = getToolByName(formonline,'portal_membership')
+    globals_roles = get_global_roles(formonline)
+    print globals_roles
     users = []
-    for user,roles in local_roles:
+    for user,roles,role_type,name in globals_roles:
         if role in roles:
             users.append(pm.getMemberById(user).getProperty('email'))
     return users
 
 def sendNotificationMail(formonline,review_state,addresses):
-
+    
     pass
     
 
