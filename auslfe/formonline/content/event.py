@@ -1,5 +1,21 @@
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_inner, aq_base, aq_parent
+from auslfe.formonline.content import formonline_contentMessageFactory as _
+from Products.PageTemplates.GlobalTranslationService import getGlobalTranslationService
+from email.MIMEText import MIMEText
+from Products.CMFPlone.utils import safe_unicode
+import socket
+from Products.CMFPlone.utils import log_exc, log
+from email.Utils import parseaddr, formataddr
+from email.MIMEMultipart import MIMEMultipart
+
+def getTextIfPendingApproval():
+    mailText = '<p>Gentile utente,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${insertion_date}, dall\'utente ${formonline_owner}</p>.<p>La informiamo che essa è in attesa della Sua approvazione. Seguendo il link alla modulistica online Le sara\' possibile effetturare le proprie modifiche.</p><p>Link alla modulistica online: <a class="reference" href="${formonline_url}">${formonline_url}</a></p><p>Cordiali saluti</p>'
+    return mailText
+
+def getTextIfPendingDispatch():
+    mailText = '<p>Gentile utente,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${insertion_date}, dall\'utente ${formonline_owner}</p>.<p>La informiamo che essa è in attesa di evasione. Seguendo il link alla modulistica online Le sara\' possibile effetturare le proprie revisioni.</p><p>Link alla modulistica online: <a class="reference" href="${formonline_url}">${formonline_url}</a></p><p>Cordiali saluti</p>'
+    return mailText
 
 def formOnlineNotificationMail(formonline,event):
     """
@@ -9,14 +25,17 @@ def formOnlineNotificationMail(formonline,event):
     review_state = portal_workflow.getInfoFor(formonline,'review_state')
     
     addresses = []
+    text = ''
     
     if review_state == 'pending_approval':
         addresses = getAddresses('Editor',formonline)
+        text = getTextIfPendingApproval()
     elif review_state == 'pending_dispatch':
         addresses = getAddresses('Reviewer',formonline)
+        text = getTextIfPendingDispatch()
     
     if addresses:
-        sendNotificationMail(formonline,review_state,addresses)
+        sendNotificationMail(formonline,text,addresses)
     
 def get_inherited(formonline):
     """Return True if local roles are inherited here.
@@ -80,115 +99,158 @@ def getAddresses(role,formonline):
     """Returns a list of email of users with a specific role on a Form Online content, from a local roles structure."""
     pm = getToolByName(formonline,'portal_membership')
     globals_roles = get_global_roles(formonline)
-    print globals_roles
     users = []
     for user,roles,role_type,name in globals_roles:
         if role in roles:
             users.append(pm.getMemberById(user).getProperty('email'))
     return users
 
-def sendNotificationMail(formonline,review_state,addresses):
+def sendNotificationMail(formonline,text,addresses):
     
-    pass
+    portal_url = getToolByName(formonline, 'portal_url')
+    portal = portal_url.getPortalObject()
+    portal_membership = getToolByName(portal, 'portal_membership')
     
+    plone_utils = getToolByName(portal, 'plone_utils')
+    charset = plone_utils.getSiteEncoding()
+    def su(value):
+        return safe_unicode(value, encoding=charset)
+    
+    formonlineCreator = formonline.Creator()
+    formonlineCreatorInfo = portal_membership.getMemberInfo(formonlineCreator)
+    formonlineAuthor = formonlineCreator
+    if formonlineCreatorInfo:
+        formonlineAuthor = formonlineCreatorInfo['fullname'] or formonlineCreator
 
-#    watchers_managers = tracker.getWatchersManagersEmailAddresses(issue)
-#    
-#    portal_url = getToolByName(issue, 'portal_url')
-#    portal = portal_url.getPortalObject()
-#    portal_membership = getToolByName(portal, 'portal_membership')
-#    
-#    issueCreator = issue.Creator()
-#    issueCreatorInfo = portal_membership.getMemberInfo(issueCreator)
-#    issueAuthor = issueCreator
-#    if issueCreatorInfo:
-#        issueAuthor = issueCreatorInfo['fullname'] or issueCreator
-#        segnalatore = portal_membership.getMemberById(issueCreator)
-#        issueCreatorEmail = issue.getContactEmail() or segnalatore.getProperty('email') or None
-#
-#    addresses = ()
-#    creator = response.creator
-#    if creator == issue.responsibleManager:
-#        if issueCreatorInfo:
-#            addresses=(issueCreatorEmail,)
-#        else:
-#            addresses=(issue.getContactEmail(),)
-#        cc = watchers_managers
-#    else:
-#        addresses = watchers_managers
-#        cc = None
-#        
-#    plone_utils = getToolByName(portal, 'plone_utils')
-#
-#    charset = plone_utils.getSiteEncoding()
-#
-#    # We are going to use the same encoding everywhere, so we will
-#    # make that easy.
-#
-#    def su(value):
-#        return safe_unicode(value, encoding=charset)
-#    
-#    if creator == issue.responsibleManager:
-#        fromName = None
-#    else:
-#        fromName = su(issueAuthor)
-#
-#    creatorInfo = portal_membership.getMemberInfo(creator)
-#    if creatorInfo and creatorInfo['fullname']:
-#        responseAuthor = creatorInfo['fullname']
-#    else:
-#        responseAuthor = creator
-#    
-#    responseAuthor = su(responseAuthor)
-#    responseText = su(response.text)
-#    paras = responseText.split(u'\n\n')[:2]
-#    wrapper = textwrap.TextWrapper(initial_indent=u'    ',
-#                                   subsequent_indent=u'    ')
-#    responseDetails = u'\n\n'.join([wrapper.fill(p) for p in paras])
-#    
-#    responseDetails = responseDetails.strip()
-#    responseDetails = responseText
-#    
-#    if creator == issue.responsibleManager:
-#        text = getTextIfManager()
-#    else:
-#        text = getTextIfNoManager()
-#
-#    data_inserimento = issue.toLocalizedTime(issue.created())                                               
-#    
-#    issueText = issue.getDetails(mimetype="text/x-web-intelligent")
-#    parasIssueText = issueText.split('\n\n')[:2]
-#    issueDetails = '\n\n'.join([wrapper.fill(p) for p in parasIssueText])
-#        
-#    mailText = _('poi_email_new_response_template', text, mapping=dict(
-#                                                                        issue_author = su(issueAuthor),
-#                                                                        issue_title = su(issue.title_or_id()),
-#                                                                        response_author = responseAuthor,
-#                                                                        response_details = responseDetails,
-#                                                                        issue_details = issueDetails,
-#                                                                        issue_url = su(issue.absolute_url()),
-#                                                                        data_inserimento = su(data_inserimento),
-#                                                                        data_invio = su(DateTime().Date()),
-#                                                                        issue_number = su(issue.id),
-#                                                                        ))
-#
-#    if creator == issue.responsibleManager:
-#        subject = u"[%s] - %s" % (su(tracker.getExternalTitle()),
-#                                      su('Comunicazione personale'))
-#    else:
-#        subject = u"[%s] - Re: %s" % (su(tracker.getExternalTitle()),
-#                                      su('Comunicazione personale'))
-#    
-#    tracker.sendNotificationEmail(addresses, subject, mailText, directHTMLbody=True, cc=cc, from_name=fromName)
-#        
-#
-#def getTextIfManager():
-#
-#    mailText = '<p>Gentile utente <strong>${formonline_overseer}</strong>,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${data_inserimento}, dall\'utente ${formonline_owner}</p>.<p>La informiamo che essa è in attesa della Sua approvazione. Seguendo il link alla modulistica online Le sara\' possibile effetturare le proprie modifiche.</p><p>Link alla modulistica online: <a class="reference" href="${formonline_url}">${formonline_url}</a></p><p>Cordiali saluti</p>'
-#    return mailText
-#
-#
-#def getTextIfNoManager():
-#
-#    mailText = '<p>Gentile utente <strong>${formonline_reviewer}</strong>,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${data_inserimento}, dall\'utente ${formonline_owner}</p>.<p>La informiamo che essa è in attesa di evasione. Seguendo il link alla modulistica online Le sara\' possibile effetturare le proprie revisioni.</p><p>Link alla modulistica online: <a class="reference" href="${formonline_url}">${formonline_url}</a></p><p>Cordiali saluti</p>'
-#    return mailText
+    insertion_date = formonline.toLocalizedTime(formonline.created())
+
+    mailText = _('formonline_notification_email', text, mapping=dict(formonline_title = su(formonline.title_or_id()),
+                                                                     data_inserimento = su(insertion_date),
+                                                                     formonline_owner = su(formonlineAuthor),
+                                                                     formonline_url = su(formonline.absolute_url()),
+                                                                     ))
+    
+    subject = u"[%s] - %s" % (su('Modulistica Online'),su('Comunicazione personale'))
+    
+    sendEmail(formonline, addresses, subject, mailText)
+        
+def sendEmail(formonline, addresses, subject, rstText, cc = None):
+    """
+    Send a email to the list of addresses
+    """
+    portal_url  = getToolByName(formonline, 'portal_url')
+    plone_utils = getToolByName(formonline, 'plone_utils')
+
+    portal      = portal_url.getPortalObject()
+    mailHost    = plone_utils.getMailHost()
+    charset     = portal.getProperty('email_charset', '')
+    if not charset:
+        charset = plone_utils.getSiteEncoding()
+        
+    from_address = portal.getProperty('email_from_address', '')
+
+    if not from_address:
+        log('Cannot send notification email: email sender address not set')
+        return
+    
+    from_name = portal.getProperty('email_from_name', '')
+
+    mfrom = formataddr((from_name, from_address))
+    if parseaddr(mfrom)[1] != from_address:
+        # formataddr probably got confused by special characters.
+        mfrom - from_address
+
+
+    email_msg = MIMEMultipart('alternative')
+    email_msg.epilogue = ''
+
+    # Translate the body text
+    ts = getGlobalTranslationService()
+        
+    rstText = ts.translate('Poi', rstText, context=formonline)
+    # We must choose the body charset manually
+    for body_charset in 'US-ASCII', charset, 'UTF-8':
+        try:
+            rstText = rstText.encode(body_charset)
+        except UnicodeError:
+            pass
+        else:
+            break
+
+    textPart = MIMEText(rstText, 'plain', body_charset)
+    email_msg.attach(textPart)
+    
+    render_html= renderBodyHTML(rstText)
+    
+    htmlPart = MIMEText(render_html,
+                        'html', body_charset)
+    email_msg.attach(htmlPart)
+
+    subject = safe_unicode(subject, charset)
+    
+    formonline.plone_log("INVIO EMAIL a: %s" % ", ".join(addresses))
+    
+    for address in addresses:
+        address = safe_unicode(address, charset)
+        try:
+            # Note that charset is only used for the headers, not
+            # for the body text as that is a Message already.
+            mailHost.secureSend(message = email_msg,
+                                mto = address,
+                                mcc = cc,
+                                mfrom = mfrom,
+                                subject = subject,
+                                charset = charset)
+        except socket.error, exc:
+            log_exc(('Could not send email from %s to %s regarding issue '
+                     'in tracker %s\ntext is:\n%s\n') % (
+                    mfrom, address, formonline.absolute_url(), email_msg))
+            log_exc("Reason: %s: %r" % (exc.__class__.__name__, str(exc)))
+        except:
+            raise
+
+def renderBodyHTML(rstText, lang='en', charset='utf-8'):
+    """Convert the body HTML into a full XHTML transitional document.
+    """
+
+    kwargs = {'lang': lang,
+              'charset': charset,
+              'body': rstText,
+              }
+    
+    return htmlTemplate % kwargs
+
+htmlTemplate = """
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="%(lang)s"
+      lang="%(lang)s">
+
+  <head>
+     <meta http-equiv="Content-Type" content="text/html; charset=%(charset)s" />
+
+    <style type="text/css" media="all">
+<!--
+BODY {
+    font-size: 0.9em;
+}
+
+H4 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+DT {
+    font-weight: bold;
+}
+-->
+    </style>
+
+  </head>
+
+
+  <body>
+%(body)s
+  </body>
+</html>
+"""
