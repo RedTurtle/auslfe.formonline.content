@@ -22,6 +22,9 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   
-  <!-- -*- extra stuff goes here -*- -->
+  <subscriber
+ 	  for="auslfe.formonline.content.interfaces.IFormOnline
+		   Products.CMFCore.interfaces.IActionSucceededEvent"
+ 	  handler=".event.formOnlineNotificationMail" />
 
 </configure>
