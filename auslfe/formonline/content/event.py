@@ -166,7 +166,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
 
     # Translate the body text
     ts = getGlobalTranslationService()
-    rstText = ts.translate('formonline_notification_email', rstText, context=formonline)
+    rstText = ts.translate('auslfe.formonline.content', rstText, context=formonline)
     # We must choose the body charset manually
     for body_charset in 'US-ASCII', charset, 'UTF-8':
         try:
