@@ -18,9 +18,9 @@ msgstr ""
 "Domain: auslfe.formonline.content\n"
 
 #. Default: "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for your approval. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
-msgid "formonline_approval_email"
+msgid "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for your approval. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
 msgstr ""
 
 #. Default: "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for dispatch. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
-msgid "formonline_dispatch_email"
+msgid "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for dispatch. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
 msgstr ""
