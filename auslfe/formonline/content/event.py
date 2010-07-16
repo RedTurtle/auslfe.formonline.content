@@ -8,13 +8,32 @@ import socket
 from Products.CMFPlone.utils import log_exc, log
 from email.Utils import parseaddr, formataddr
 from email.MIMEMultipart import MIMEMultipart
+from reStructuredText import HTML as rstHTML
 
 def getTextIfPendingApproval():
-    mailText = '<p>Dear user,<br />this is a personal communication regarding the Form Online: <strong>${formonline_title}</strong>, placed on: ${insertion_date}, by the user ${formonline_owner}.</p><p>It is waiting for your approval. Following the link to the Form Online you can make your changes.</p><p>Link to Form Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>,</p><p>kind regards</p>'
+    mailText = u"""
+Dear user,
+this is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.
+
+It is waiting for your approval. Following the link to the Form Online you can make your changes.
+
+Link to Form Online: ${formonline_url},
+
+kind regards
+"""
     return mailText
 
 def getTextIfPendingDispatch():
-    mailText = '<p>Dear user,<br />this is a personal communication regarding the Form Online: <strong>${formonline_title}</strong>, placed on: ${insertion_date}, by the user ${formonline_owner}.</p><p>It is waiting for dispatch. Following the link to the Form Online you can make your changes.</p><p>Link to Form Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>,</p><p>kind regards</p>'
+    mailText = u"""
+Dear user,
+this is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.
+
+It is waiting for dispatch. Following the link to the Form Online you can make your changes.
+
+Link to Form Online: ${formonline_url},
+
+kind regards
+"""
     return mailText
 
 def formOnlineNotificationMail(formonline,event):
@@ -26,16 +45,19 @@ def formOnlineNotificationMail(formonline,event):
     
     addresses = []
     text = ''
+    msgid = ''
     
     if review_state == 'pending_approval':
         addresses = getAddresses('Editor',formonline)
+        msgid = 'formonline_approval_email'
         text = getTextIfPendingApproval()
     elif review_state == 'pending_dispatch':
         addresses = getAddresses('Reviewer',formonline)
+        msgid = 'formonline_dispatch_email'
         text = getTextIfPendingDispatch()
     
     if addresses:
-        sendNotificationMail(formonline,text,addresses)
+        sendNotificationMail(formonline,msgid,text,addresses)
     
 def get_inherited(formonline):
     """Return True if local roles are inherited here.
@@ -105,8 +127,10 @@ def getAddresses(role,formonline):
             users.append(pm.getMemberById(user).getProperty('email'))
     return users
 
-def sendNotificationMail(formonline,text,addresses):
-    
+def sendNotificationMail(formonline,msgid,text,addresses):
+    """
+    Send a notification email to the list of addresses
+    """
     portal_url = getToolByName(formonline, 'portal_url')
     portal = portal_url.getPortalObject()
     portal_membership = getToolByName(portal, 'portal_membership')
@@ -123,12 +147,12 @@ def sendNotificationMail(formonline,text,addresses):
         formonlineAuthor = formonlineCreatorInfo['fullname'] or formonlineCreator
 
     insertion_date = formonline.toLocalizedTime(formonline.created())
-    
-    mailText = _('formonline_notification_email', text, mapping=dict(formonline_title = su(formonline.title_or_id()),
-                                                                     insertion_date = su(insertion_date),
-                                                                     formonline_owner = su(formonlineAuthor),
-                                                                     formonline_url = su(formonline.absolute_url()),
-                                                                     ))
+
+    mailText = _(msgid, text, mapping=dict(formonline_title = su(formonline.title_or_id()),
+                                           insertion_date = su(insertion_date),
+                                           formonline_owner = su(formonlineAuthor),
+                                           formonline_url = su(formonline.absolute_url()),
+                                           ))
     
     subject = u"[%s] - %s" % (su('Modulistica Online'),su('Comunicazione personale'))
     
@@ -146,15 +170,12 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
     charset     = portal.getProperty('email_charset', '')
     if not charset:
         charset = plone_utils.getSiteEncoding()
-        
     from_address = portal.getProperty('email_from_address', '')
 
     if not from_address:
         log('Cannot send notification email: email sender address not set')
         return
-    
     from_name = portal.getProperty('email_from_name', '')
-
     mfrom = formataddr((from_name, from_address))
     if parseaddr(mfrom)[1] != from_address:
         # formataddr probably got confused by special characters.
@@ -178,17 +199,12 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
 
     textPart = MIMEText(rstText, 'plain', body_charset)
     email_msg.attach(textPart)
-    
-    render_html= renderBodyHTML(rstText)
-    
-    htmlPart = MIMEText(render_html,
+    htmlPart = MIMEText(renderHTML(rstText, charset=body_charset),
                         'html', body_charset)
     email_msg.attach(htmlPart)
 
     subject = safe_unicode(subject, charset)
-    
-    formonline.plone_log("INVIO EMAIL a: %s" % ", ".join(addresses))
-    
+
     for address in addresses:
         address = safe_unicode(address, charset)
         try:
@@ -196,7 +212,6 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
             # for the body text as that is a Message already.
             mailHost.secureSend(message = email_msg,
                                 mto = address,
-                                mcc = cc,
                                 mfrom = mfrom,
                                 subject = subject,
                                 charset = charset)
@@ -208,14 +223,14 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         except:
             raise
 
-def renderBodyHTML(rstText, lang='en', charset='utf-8'):
-    """Convert the body HTML into a full XHTML transitional document.
+def renderHTML(rstText, lang='en', charset='utf-8'):
+    """Convert the given rST into a full XHTML transitional document.
     """
 
     kwargs = {'lang': lang,
               'charset': charset,
-              'body': rstText,
-              }
+              'body': rstHTML(rstText, input_encoding=charset,
+                              output_encoding=charset)}
     
     return htmlTemplate % kwargs
 
