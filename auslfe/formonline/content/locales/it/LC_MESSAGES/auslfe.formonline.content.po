@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-07-16 12:48+0000\n"
+"POT-Creation-Date: 2010-07-16 16:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Federica D'Elia <federica.delia@redturtle.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 msgid "Form Online"
 msgstr "Modulistica Online"
 
-#: ./event.py:56
+#: ./event.py:55
 msgid "[Form Online] - Form Online in pending state approval"
 msgstr "[Modulistica Online] - Modulistica Online in stato di attesa di approvazione"
 
-#: ./event.py:60
+#: ./event.py:59
 msgid "[Form Online] - Form Online in pending state dispatch"
 msgstr "[Modulistica Online] - Modulistica Online in stato di attesa di evasione"
 
@@ -34,7 +34,7 @@ msgstr ""
 "\n"
 "questa è una comunicazione personale relativa alla Modulistica Online: **${formonline_title}**, inserita in data: **${insertion_date}**, dall'utente **${formonline_owner}**.\n"
 "\n"
-"La informiamo che essa è in attesa della Sua approvazione. Seguendo il link alla Modulistica Online Le sarà possibile effettuare le proprie modifiche.\n"
+"La informiamo che essa è in attesa di evasione. Seguendo il link alla Modulistica Online Le sarà possibile effettuare le proprie modifiche.\n"
 "\n"
 "Link alla Modulistica Online: ${formonline_url}.\n"
 "\n"
@@ -48,7 +48,7 @@ msgstr ""
 "\n"
 "questa è una comunicazione personale relativa alla Modulistica Online: **${formonline_title}**, inserita in data: **${insertion_date}**, dall'utente **${formonline_owner}**.\n"
 "\n"
-"La informiamo che essa è in attesa di evasione. Seguendo il link alla Modulistica Online Le sarà possibile effettuare le proprie modifiche.\n"
+"La informiamo che essa è in attesa della Sua approvazione. Seguendo il link alla Modulistica Online Le sarà possibile effettuare le proprie modifiche.\n"
 "\n"
 "Link alla Modulistica Online: ${formonline_url}.\n"
 "\n"
