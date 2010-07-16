@@ -10,11 +10,11 @@ from email.Utils import parseaddr, formataddr
 from email.MIMEMultipart import MIMEMultipart
 
 def getTextIfPendingApproval():
-    mailText = '<p>Gentile utente,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${insertion_date}, dall\'utente ${formonline_owner}</p>.<p>La informiamo che essa è in attesa della Sua approvazione. Seguendo il link alla modulistica online Le sara\' possibile effetturare le proprie modifiche.</p><p>Link alla modulistica online: <a class="reference" href="${formonline_url}">${formonline_url}</a></p><p>Cordiali saluti</p>'
+    mailText = '<p>Gentile utente,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${insertion_date}, dall\'utente ${formonline_owner}.</p><p>La informiamo che essa e\' in attesa della Sua approvazione. Seguendo il link alla Modulistica Online Le sara\' possibile effettuare le proprie modifiche.</p><p>Link alla Modulistica Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>.</p><p>Cordiali saluti</p>'
     return mailText
 
 def getTextIfPendingDispatch():
-    mailText = '<p>Gentile utente,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${insertion_date}, dall\'utente ${formonline_owner}</p>.<p>La informiamo che essa è in attesa di evasione. Seguendo il link alla modulistica online Le sara\' possibile effetturare le proprie revisioni.</p><p>Link alla modulistica online: <a class="reference" href="${formonline_url}">${formonline_url}</a></p><p>Cordiali saluti</p>'
+    mailText = '<p>Gentile utente,<br />questa e\' una comunicazione personale relativa alla Modulistica Online: <strong>${formonline_title}</strong>, inserita in data: ${insertion_date}, dall\'utente ${formonline_owner}.</p><p>La informiamo che essa e\' in attesa di evasione. Seguendo il link alla Modulistica Online Le sara\' possibile effettuare le proprie modifiche.</p><p>Link alla Modulistica Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>.</p><p>Cordiali saluti</p>'
     return mailText
 
 def formOnlineNotificationMail(formonline,event):
@@ -123,9 +123,9 @@ def sendNotificationMail(formonline,text,addresses):
         formonlineAuthor = formonlineCreatorInfo['fullname'] or formonlineCreator
 
     insertion_date = formonline.toLocalizedTime(formonline.created())
-
+    
     mailText = _('formonline_notification_email', text, mapping=dict(formonline_title = su(formonline.title_or_id()),
-                                                                     data_inserimento = su(insertion_date),
+                                                                     insertion_date = su(insertion_date),
                                                                      formonline_owner = su(formonlineAuthor),
                                                                      formonline_url = su(formonline.absolute_url()),
                                                                      ))
@@ -166,8 +166,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
 
     # Translate the body text
     ts = getGlobalTranslationService()
-        
-    rstText = ts.translate('Poi', rstText, context=formonline)
+    rstText = ts.translate('formonline_notification_email', rstText, context=formonline)
     # We must choose the body charset manually
     for body_charset in 'US-ASCII', charset, 'UTF-8':
         try:
