@@ -10,11 +10,11 @@ from email.Utils import parseaddr, formataddr
 from email.MIMEMultipart import MIMEMultipart
 
 def getTextIfPendingApproval():
-    mailText = '<p>Dear user,<br />this is a personal communication regarding the Form Online: <strong>${formonline_title}</strong>, placed on: ${insertion_date}, by the user ${formonline_owner}.</p><p>It is waiting for your approval. Following the link to the Form Online you can make your changes.</p><p>Link to Form Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>.</p><p>kind regards</p>'
+    mailText = '<p>Dear user,<br />this is a personal communication regarding the Form Online: <strong>${formonline_title}</strong>, placed on: ${insertion_date}, by the user ${formonline_owner}.</p><p>It is waiting for your approval. Following the link to the Form Online you can make your changes.</p><p>Link to Form Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>,</p><p>kind regards</p>'
     return mailText
 
 def getTextIfPendingDispatch():
-    mailText = '<p>Dear user,<br />this is a personal communication regarding the Form Online: <strong>${formonline_title}</strong>, placed on: ${insertion_date}, by the user ${formonline_owner}.</p><p>It is waiting for dispatch. Following the link to the Form Online you can make your changes.</p><p>Link to Form Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>.</p><p>kind regards</p>'
+    mailText = '<p>Dear user,<br />this is a personal communication regarding the Form Online: <strong>${formonline_title}</strong>, placed on: ${insertion_date}, by the user ${formonline_owner}.</p><p>It is waiting for dispatch. Following the link to the Form Online you can make your changes.</p><p>Link to Form Online: <a class="reference" href="${formonline_url}">${formonline_url}</a>,</p><p>kind regards</p>'
     return mailText
 
 def formOnlineNotificationMail(formonline,event):
