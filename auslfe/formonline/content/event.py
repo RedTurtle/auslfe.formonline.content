@@ -48,18 +48,21 @@ def formOnlineNotificationMail(formonline,event):
     addresses = []
     text = ''
     msgid = ''
+    subject = ''
     
     if review_state == 'pending_approval':
         addresses = getAddresses('Editor',formonline)
         msgid = 'formonline_approval_email'
         text = getTextIfPendingApproval()
+        subject = _('[Form Online] - Form Online in pending state approval')
     elif review_state == 'pending_dispatch':
         addresses = getAddresses('Reviewer',formonline)
         msgid = 'formonline_dispatch_email'
         text = getTextIfPendingDispatch()
+        subject = _('[Form Online] - Form Online in pending state dispatch')
     
     if addresses:
-        sendNotificationMail(formonline,msgid,text,addresses)
+        sendNotificationMail(formonline,msgid,subject,text,addresses)
     
 def get_inherited(formonline):
     """Return True if local roles are inherited here.
@@ -129,7 +132,7 @@ def getAddresses(role,formonline):
             users.append(pm.getMemberById(user).getProperty('email'))
     return users
 
-def sendNotificationMail(formonline,msgid,text,addresses):
+def sendNotificationMail(formonline,msgid,subject,text,addresses):
     """
     Send a notification email to the list of addresses
     """
@@ -156,7 +159,8 @@ def sendNotificationMail(formonline,msgid,text,addresses):
                                            formonline_url = su(formonline.absolute_url()),
                                            ))
     
-    subject = u"[%s] - %s" % (su('Modulistica Online'),su('Comunicazione personale'))
+    ts = getGlobalTranslationService()
+    subject = ts.translate('auslfe.formonline.content', subject, context=formonline)
     
     sendEmail(formonline, addresses, subject, mailText)
         
