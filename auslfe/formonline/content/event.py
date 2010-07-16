@@ -13,6 +13,7 @@ from reStructuredText import HTML as rstHTML
 def getTextIfPendingApproval():
     mailText = u"""
 Dear user,
+
 this is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.
 
 It is waiting for your approval. Following the link to the Form Online you can make your changes.
@@ -26,6 +27,7 @@ kind regards
 def getTextIfPendingDispatch():
     mailText = u"""
 Dear user,
+
 this is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.
 
 It is waiting for dispatch. Following the link to the Form Online you can make your changes.
