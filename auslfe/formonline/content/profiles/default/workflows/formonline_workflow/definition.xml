@@ -15,7 +15,7 @@
  <state state_id="dispatch" title="Dispatch" i18n:attributes="title">
   <exit-transition transition_id="retract"/>
   <permission-map name="Access contents information"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -26,7 +26,7 @@
    <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="List folder contents"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -36,7 +36,7 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="True">
+  <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -47,7 +47,7 @@
   <exit-transition transition_id="approval"/>
   <exit-transition transition_id="retract"/>
   <permission-map name="Access contents information"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -59,7 +59,7 @@
    <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="List folder contents"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -70,7 +70,7 @@
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="True">
+  <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -81,7 +81,7 @@
   <exit-transition transition_id="dispatch"/>
   <exit-transition transition_id="retract"/>
   <permission-map name="Access contents information"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -93,7 +93,7 @@
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="List folder contents"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -104,7 +104,7 @@
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="True">
+  <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -114,7 +114,7 @@
  <state state_id="private" title="Private" i18n:attributes="title">
   <exit-transition transition_id="submit"/>
   <permission-map name="Access contents information"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -126,7 +126,7 @@
    <permission-role>Owner</permission-role>
   </permission-map>
   <permission-map name="List folder contents"
-                  acquired="True">
+                  acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -137,7 +137,7 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
-  <permission-map name="View" acquired="True">
+  <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
