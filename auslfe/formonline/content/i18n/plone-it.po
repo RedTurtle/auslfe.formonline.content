@@ -44,7 +44,7 @@ msgstr "Privato"
 
 #: ./profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Retract content"
-msgstr "Ritrai il contenuto"
+msgstr "Ritira il contenuto"
 
 #: ./profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Submit for approval"
