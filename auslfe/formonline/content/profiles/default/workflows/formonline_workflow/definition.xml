@@ -45,7 +45,7 @@
  </state>
  <state state_id="pending_approval" title="Pending Approval" i18n:attributes="title">
   <exit-transition transition_id="approval"/>
-  <exit-transition transition_id="retract"/>
+  <exit-transition transition_id="retract_approval"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Editor</permission-role>
@@ -79,7 +79,7 @@
  </state>
  <state state_id="pending_dispatch" title="Pending Dispatch" i18n:attributes="title">
   <exit-transition transition_id="dispatch"/>
-  <exit-transition transition_id="retract"/>
+  <exit-transition transition_id="retract_dispatch"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Editor</permission-role>
@@ -172,6 +172,26 @@
           category="workflow" i18n:translate="">Retract content</action>
   <guard>
    <guard-role>Manager</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="retract_approval"
+             title="Editor and Manager retract approval"
+             new_state="private" trigger="USER"
+             before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=	retract_approval"
+          category="workflow" i18n:translate="">Retract content</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="retract_dispatch"
+             title="Reviewer and Manager retract dispatch"
+             new_state="private" trigger="USER"
+             before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=	retract_dispatch"
+          category="workflow" i18n:translate="">Retract content</action>
+  <guard>
+   <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
  <transition transition_id="submit"
