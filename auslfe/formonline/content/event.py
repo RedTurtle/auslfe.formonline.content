@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_inner, aq_base, aq_parent
 from auslfe.formonline.content import formonline_contentMessageFactory as _
@@ -10,35 +12,7 @@ from email.Utils import parseaddr, formataddr
 from email.MIMEMultipart import MIMEMultipart
 from reStructuredText import HTML as rstHTML
 
-def getTextIfPendingApproval():
-    mailText = u"""
-Dear user,
-
-this is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.
-
-It is waiting for your approval. Following the link to the Form Online you can make your changes.
-
-Link to Form Online: ${formonline_url},
-
-kind regards
-"""
-    return mailText
-
-def getTextIfPendingDispatch():
-    mailText = u"""
-Dear user,
-
-this is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.
-
-It is waiting for dispatch. Following the link to the Form Online you can make your changes.
-
-Link to Form Online: ${formonline_url},
-
-kind regards
-"""
-    return mailText
-
-def formOnlineNotificationMail(formonline,event):
+def formOnlineNotificationMail(formonline, event):
     """
     When the state of a Form Online changes in one of the states in ['pending_approval','pending_dispatch'], send a notification email.
     """
@@ -51,15 +25,11 @@ def formOnlineNotificationMail(formonline,event):
     
     if review_state == 'pending_approval':
         addresses = getAddresses('Editor',formonline)
-        text = getTextIfPendingApproval()
-        subject = _('[Form Online] - Form Online in pending state approval')
     elif review_state == 'pending_dispatch':
         addresses = getAddresses('Reviewer',formonline)
-        text = getTextIfPendingDispatch()
-        subject = _('[Form Online] - Form Online in pending state dispatch')
     
     if addresses:
-        sendNotificationMail(formonline,subject,text,addresses)
+        sendNotificationMail(formonline, review_state, addresses)
     
 def get_inherited(formonline):
     """Return True if local roles are inherited here.
@@ -129,7 +99,7 @@ def getAddresses(role,formonline):
             users.append(pm.getMemberById(user).getProperty('email'))
     return users
 
-def sendNotificationMail(formonline,subject,text,addresses):
+def sendNotificationMail(formonline, review_state, addresses):
     """
     Send a notification email to the list of addresses
     """
@@ -139,6 +109,7 @@ def sendNotificationMail(formonline,subject,text,addresses):
     
     plone_utils = getToolByName(portal, 'plone_utils')
     charset = plone_utils.getSiteEncoding()
+
     def su(value):
         return safe_unicode(value, encoding=charset)
     
@@ -150,17 +121,48 @@ def sendNotificationMail(formonline,subject,text,addresses):
 
     insertion_date = formonline.toLocalizedTime(formonline.created())
 
-    mailText = _(text, text, mapping=dict(formonline_title = su(formonline.title_or_id()),
-                                           insertion_date = su(insertion_date),
-                                           formonline_owner = su(formonlineAuthor),
-                                           formonline_url = su(formonline.absolute_url()),
-                                           ))
+    _ = getGlobalTranslationService().translate
+
+    mapping = dict(formonline_title = su(formonline.title_or_id()),
+                   insertion_date = su(insertion_date),
+                   formonline_owner = su(formonlineAuthor),
+                   formonline_url = su(formonline.absolute_url()),
+                   )
+
+    if review_state == 'pending_approval':
+        addresses = getAddresses('Editor',formonline)
+        subject = _(msgid='subject_pending_approval',
+                    u'[Form Online] - Form Online in pending state approval',
+                    domain="auslfe.formonline.content",
+                    context=formonline)
+        text = _(msgid='mail_text_approval_required', default=u"""Dear user,
+
+this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
+
+It is waiting for your approval. Follow the link below for perform you actions:
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+
+    elif review_state == 'pending_dispatch':
+        addresses = getAddresses('Reviewer',formonline)
+        subject = _('subject_pending_dispatch',
+                    u'[Form Online] - Form Online in pending state dispatch',
+                    domain="auslfe.formonline.content",
+                    context=formonline)
+        text = _(msgid='mail_text_dispatch_required', default=u"""Dear user,
+
+this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
+
+The request has been approved and it's waiting for your confirmation. Follow the link below for perform you actions:
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
     
-    ts = getGlobalTranslationService()
-    subject = ts.translate('auslfe.formonline.content', subject, context=formonline)
-    
-    sendEmail(formonline, addresses, subject, mailText)
-        
+    sendEmail(formonline, addresses, subject, text)
+
 def sendEmail(formonline, addresses, subject, rstText, cc = None):
     """
     Send a email to the list of addresses

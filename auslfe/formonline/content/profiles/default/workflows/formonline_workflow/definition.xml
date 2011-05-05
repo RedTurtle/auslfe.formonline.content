@@ -1,18 +1,16 @@
 <?xml version="1.0"?>
-<dc-workflow xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-             i18n:domain="plone"
-             workflow_id="formonline_workflow"
+<dc-workflow workflow_id="formonline_workflow"
              title="Form Online Workflow"
              description="Workflow for Form Online documents."
              state_variable="review_state"
-             initial_state="private"
-             i18n:attributes="title; description">
+             initial_state="private">
  <permission>Access contents information</permission>
  <permission>Change portal events</permission>
  <permission>List folder contents</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
- <state state_id="dispatch" title="Dispatch" i18n:attributes="title">
+ <permission>Sharing page: Delegate roles</permission>
+ <state state_id="dispatch" title="Dispatch">
   <exit-transition transition_id="retract"/>
   <permission-map name="Access contents information"
                   acquired="False">
@@ -36,6 +34,10 @@
                   acquired="False">
    <permission-role>Manager</permission-role>
   </permission-map>
+  <permission-map name="Sharing page: Delegate roles"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -43,7 +45,7 @@
    <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
- <state state_id="pending_approval" title="Pending Approval" i18n:attributes="title">
+ <state state_id="pending_approval" title="Pending Approval">
   <exit-transition transition_id="approval"/>
   <exit-transition transition_id="retract_approval"/>
   <permission-map name="Access contents information"
@@ -70,6 +72,10 @@
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
   </permission-map>
+  <permission-map name="Sharing page: Delegate roles"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -77,7 +83,7 @@
    <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
- <state state_id="pending_dispatch" title="Pending Dispatch" i18n:attributes="title">
+ <state state_id="pending_dispatch" title="Pending Dispatch">
   <exit-transition transition_id="dispatch"/>
   <exit-transition transition_id="retract_dispatch"/>
   <permission-map name="Access contents information"
@@ -102,7 +108,10 @@
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Manager</permission-role>
-   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
@@ -111,7 +120,7 @@
    <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
- <state state_id="private" title="Private" i18n:attributes="title">
+ <state state_id="private" title="Private">
   <exit-transition transition_id="submit"/>
   <permission-map name="Access contents information"
                   acquired="False">
@@ -137,6 +146,10 @@
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
+  <permission-map name="Sharing page: Delegate roles"
+                  acquired="False">
+   <permission-role>Manager</permission-role>
+  </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -149,7 +162,7 @@
              new_state="pending_dispatch" trigger="USER"
              before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=approval"
-          category="workflow" i18n:translate="">Approve content</action>
+          category="workflow">Approve content</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
   </guard>
@@ -159,7 +172,7 @@
              new_state="dispatch" trigger="USER"
              before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=dispatch"
-          category="workflow" i18n:translate="">Dispatch content</action>
+          category="workflow">Dispatch content</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -169,7 +182,7 @@
              new_state="private" trigger="USER"
              before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=retract"
-          category="workflow" i18n:translate="">Retract content</action>
+          category="workflow">Retract content</action>
   <guard>
    <guard-role>Manager</guard-role>
   </guard>
@@ -178,8 +191,8 @@
              title="Editor and Manager retract approval"
              new_state="private" trigger="USER"
              before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=	retract_approval"
-          category="workflow" i18n:translate="">Retract content</action>
+  <action url="%(content_url)s/content_status_modify?workflow_action= retract_approval"
+          category="workflow">Retract content</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
   </guard>
@@ -188,8 +201,8 @@
              title="Reviewer and Manager retract dispatch"
              new_state="private" trigger="USER"
              before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=	retract_dispatch"
-          category="workflow" i18n:translate="">Retract content</action>
+  <action url="%(content_url)s/content_status_modify?workflow_action= retract_dispatch"
+          category="workflow">Retract content</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>
@@ -199,7 +212,7 @@
              new_state="pending_approval" trigger="USER"
              before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=submit"
-          category="workflow" i18n:translate="">Submit for approval</action>
+          category="workflow">Submit for approval</action>
   <guard>
    <guard-permission>Request review</guard-permission>
   </guard>

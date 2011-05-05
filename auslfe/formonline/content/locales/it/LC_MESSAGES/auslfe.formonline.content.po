@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-07-19 10:06+0000\n"
+"POT-Creation-Date: 2011-05-05 16:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Federica D'Elia <federica.delia@redturtle.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,43 +14,62 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: auslfe.formonline.content\n"
 
-#: ./profiles/default/types/FormOnline.xml
+#: ../profiles/default/types/FormOnline.xml
 msgid "Form Online"
 msgstr "Modulistica Online"
 
-#: ./event.py:55
-msgid "[Form Online] - Form Online in pending state approval"
-msgstr "[Modulistica Online] - Modulistica Online in stato di attesa di approvazione"
+#: ../browser/formonline_view.pt:28
+msgid "Note"
+msgstr "Nota"
 
-#: ./event.py:59
-msgid "[Form Online] - Form Online in pending state dispatch"
-msgstr "[Modulistica Online] - Modulistica Online in stato di attesa di evasione"
-
-#. Default: "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for dispatch. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
-msgid "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for dispatch. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform you actions:\n${formonline_url}\n\nRegards\n"
+#: ../event.py:138
+msgid "mail_text_approval_required"
 msgstr ""
-"\n"
 "Gentile utente,\n"
 "\n"
-"questa è una comunicazione personale relativa alla Modulistica Online: **${formonline_title}**, inserita in data: **${insertion_date}**, dall'utente **${formonline_owner}**.\n"
+"questa è una comunicazione personale riguardo il Modulo Online **${formonline_title}**, creato il **${insertion_date}** da **${formonline_owner}**.\n"
 "\n"
-"La informiamo che essa è in attesa di evasione. Seguendo il link alla Modulistica Online Le sarà possibile effettuare le proprie modifiche.\n"
+"Sta attendendo la sua approvazione. Segua il link sotto per eseguire le necessarie azioni:\n"
+"${formonline_url}\n"
 "\n"
-"Link alla Modulistica Online: ${formonline_url}.\n"
-"\n"
-"Cordiali saluti\n"
+"Saluti"
 
-#. Default: "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for your approval. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
-msgid "\nDear user,\n\nthis is a personal communication regarding the Form Online: **${formonline_title}**, placed on: **${insertion_date}**, by the user **${formonline_owner}**.\n\nIt is waiting for your approval. Following the link to the Form Online you can make your changes.\n\nLink to Form Online: ${formonline_url},\n\nkind regards\n"
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform you actions:\n${formonline_url}\n\nRegards\n"
+#: ../event.py:154
+msgid "mail_text_dispatch_required"
 msgstr ""
-"\n"
 "Gentile utente,\n"
 "\n"
-"questa è una comunicazione personale relativa alla Modulistica Online: **${formonline_title}**, inserita in data: **${insertion_date}**, dall'utente **${formonline_owner}**.\n"
+"questa è una comunicazione personale riguardo il Modulo Online **${formonline_title}**, creato il **${insertion_date}** da **${formonline_owner}**.\n"
 "\n"
-"La informiamo che essa è in attesa della Sua approvazione. Seguendo il link alla Modulistica Online Le sarà possibile effettuare le proprie modifiche.\n"
+"La richiesta è stata accettata e attende la sua conferma. Segua il link sotto per eseguire le necessarie azioni:\n"
+"${formonline_url}\n"
 "\n"
-"Link alla Modulistica Online: ${formonline_url}.\n"
-"\n"
-"Cordiali saluti\n"
+"Saluti"
+
+#. Default: "Overseer has not approved this form yet."
+#: ../browser/formonline_view.pt:35
+msgid "pending_approval"
+msgstr "Il responsabile non ha ancora approvato questo modulo."
+
+#. Default: "This activity has not been confirmed yet."
+#: ../browser/formonline_view.pt:41
+msgid "pending_dispatch"
+msgstr "Questa attività non è ancora stata confermata."
+
+#. Default: "The form has not been submitted yet."
+#: ../browser/formonline_view.pt:29
+msgid "private_msg"
+msgstr "Questo modulo non è ancora stato inviato."
+
+#. Default: "[Form Online] - Form Online in pending state approval"
+#: ../event.py:134
+msgid "subject_pending_approval"
+msgstr "[Modulistica] - Modulo in attesa di approvazione"
+
+#. Default: "[Form Online] - Form Online in pending state dispatch"
+#: ../event.py:150
+msgid "subject_pending_dispatch"
+msgstr "[Modulistica] - Modulo in attesa di completamento"
 

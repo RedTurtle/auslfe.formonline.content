@@ -1,7 +1,14 @@
 Changelog
 =========
 
-0.1.0
------
+0.2.0 (Unreleased)
+------------------
 
-- Initial release
+* enabled versioning [keul]
+* changes to the content workflow [keul]
+* i18n fixes [keul]
+
+0.1.0 (Unreleased)
+------------------
+
+* Initial release [fdelia]

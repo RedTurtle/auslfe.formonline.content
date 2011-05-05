@@ -10,4 +10,11 @@
 	directory="images"
 	/>
 
+  <browser:page
+      for="..interfaces.IFormOnline"
+      name="formonline_view"
+      template="formonline_view.pt"
+      permission="zope2.View"
+      />
+
 </configure>

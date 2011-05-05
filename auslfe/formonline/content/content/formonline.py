@@ -20,6 +20,7 @@ FormOnlineSchema = ATDocumentSchema.copy() + atapi.Schema((
 # they work well with the python bridge properties.
 
 FormOnlineSchema['title'].storage = atapi.AnnotationStorage()
+FormOnlineSchema['description'].widget.visible = {'edit': 'invisible', 'view': 'invisible'}
 FormOnlineSchema['description'].storage = atapi.AnnotationStorage()
 
 schemata.finalizeATCTSchema(FormOnlineSchema, moveDiscussion=False)
@@ -30,6 +31,8 @@ class FormOnline(ATDocument):
 
     meta_type = "FormOnline"
     schema = FormOnlineSchema
+    
+    _at_rename_after_creation = False # is better to keep autocreated ids
 
     title = atapi.ATFieldProperty('title')
     description = atapi.ATFieldProperty('description')

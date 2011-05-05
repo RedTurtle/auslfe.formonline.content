@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step
+     id="formonline-document-versioning"
+     version="20110503-01"
+     handler="auslfe.formonline.content.setuphandlers.setVersionedTypes"
+     title="auslfe.formonline.content: Versioning">
+         Setup handler to put under version control the specified portal types
+     <dependency step="typeinfo"/>
+  </import-step>
+</import-steps>
