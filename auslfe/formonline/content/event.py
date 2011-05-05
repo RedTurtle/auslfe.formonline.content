@@ -132,7 +132,7 @@ def sendNotificationMail(formonline, review_state, addresses):
     if review_state == 'pending_approval':
         addresses = getAddresses('Editor',formonline)
         subject = _(msgid='subject_pending_approval',
-                    u'[Form Online] - Form Online in pending state approval',
+                    default=u'[Form Online] - Form Online in pending state approval',
                     domain="auslfe.formonline.content",
                     context=formonline)
         text = _(msgid='mail_text_approval_required', default=u"""Dear user,
@@ -147,8 +147,8 @@ Regards
 
     elif review_state == 'pending_dispatch':
         addresses = getAddresses('Reviewer',formonline)
-        subject = _('subject_pending_dispatch',
-                    u'[Form Online] - Form Online in pending state dispatch',
+        subject = _(msgid='subject_pending_dispatch',
+                    default=u'[Form Online] - Form Online in pending state dispatch',
                     domain="auslfe.formonline.content",
                     context=formonline)
         text = _(msgid='mail_text_dispatch_required', default=u"""Dear user,
