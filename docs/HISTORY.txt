@@ -7,6 +7,9 @@ Changelog
 * enabled versioning [keul]
 * changes to the content workflow [keul]
 * i18n fixes [keul]
+* some workflow changes [keul]
+* FormOnline content has its own view [keul]
+* added warning messages to the FormOnline view [keul]
 
 0.1.0 (Unreleased)
 ------------------
