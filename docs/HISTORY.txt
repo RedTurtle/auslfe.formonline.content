@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.2.0 (Unreleased)
+0.2.0 (2011-05-06)
 ------------------
 
 * enabled versioning [keul]
@@ -11,7 +11,7 @@ Changelog
 * FormOnline content has its own view [keul]
 * added warning messages to the FormOnline view [keul]
 
-0.1.0 (Unreleased)
+0.1.0 (2010-07-19)
 ------------------
 
 * Initial release [fdelia]
