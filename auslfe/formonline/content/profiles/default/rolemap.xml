@@ -4,6 +4,7 @@
     <!-- -*- extra stuff goes here -*- -->
     <permission name="auslfe.formonline.content: Add FormOnline" acquire="False">
       <role name="Manager" />
+      <role name="Site Administrator" />
       <role name="Contributor" />
     </permission>
   </permissions>
