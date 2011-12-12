@@ -3,7 +3,7 @@ Introduction
 
 A simple Page-like content type for Plone, to be used with `auslfe.formonline.pfgadapter`__
 
-__ http://pypi.python.org/pypi/auslfe.formonline.pfgadapter
+__ http://plone.org/products/auslfe.formonline.pfgadapter
 
 Credits
 =======

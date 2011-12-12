@@ -222,7 +222,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
                                 charset = charset)
         except socket.error, exc:
             log_exc(('Could not send email from %s to %s regarding issue '
-                     'in tracker %s\ntext is:\n%s\n') % (
+                     'in content %s\ntext is:\n%s\n') % (
                     mfrom, address, formonline.absolute_url(), email_msg))
             log_exc("Reason: %s: %r" % (exc.__class__.__name__, str(exc)))
         except:

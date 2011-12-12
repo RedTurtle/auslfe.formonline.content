@@ -12,8 +12,6 @@
   <include package=".browser" />
   <include package=".content" />
   
-  <include file="skins.zcml"/>
-  
   <!-- Register the installation GenericSetup extension profile -->
   <genericsetup:registerProfile
       name="default"

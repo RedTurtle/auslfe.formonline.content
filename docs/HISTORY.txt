@@ -5,8 +5,9 @@ Changelog
 ------------------
 
 * added support for "Site Administrator" role
-  (this **not** mean that we tested this on Plone 4.1).
-  [keul]
+  (this **not** mean that we tested this on Plone 4.1) yet [keul]
+* removed CMF skins directory (having it only for customize the ``getNotAddableTypes``
+  script was not a good idea [keul]
 
 0.2.0 (2011-05-06)
 ------------------
