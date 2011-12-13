@@ -5,13 +5,19 @@ from Products.CMFEditions.setuphandlers import DEFAULT_POLICIES
 
 TYPES_TO_VERSION = ('FormOnline',)
 
+def setupVarious(context):
+
+    if context.readDataFile('auslfe.formonline.content_various.txt') is None:
+        return
+
+
 def setVersionedTypes(context):
     '''
     Setup handler to put under version control the specified portal types
     
     '''
 
-    if context.readDataFile('auslfe.formonline.content_various.txt') is None:
+    if context.readDataFile('auslfe.formonline.content_types.txt') is None:
         return
 
     portal=context.getSite()

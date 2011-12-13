@@ -14,7 +14,8 @@ from reStructuredText import HTML as rstHTML
 
 def formOnlineNotificationMail(formonline, event):
     """
-    When the state of a Form Online changes in one of the states in ['pending_approval','pending_dispatch'], send a notification email.
+    When the state of a Form Online changes in one of the states in
+    ['pending_approval','pending_dispatch'], send a notification email.
     """
     portal_workflow = getToolByName(formonline,'portal_workflow')
     review_state = portal_workflow.getInfoFor(formonline,'review_state')
@@ -266,7 +267,6 @@ DT {
     </style>
 
   </head>
-
 
   <body>
 %(body)s

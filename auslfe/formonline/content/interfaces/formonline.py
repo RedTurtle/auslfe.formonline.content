@@ -1,6 +1,5 @@
 from zope.interface import Interface
 
 class IFormOnline(Interface):
-    """Description of the Example Type"""
+    """Marker interface for a FormOnline content"""
     
-    # -*- schema definition goes here -*-

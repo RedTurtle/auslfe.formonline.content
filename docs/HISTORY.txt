@@ -8,6 +8,9 @@ Changelog
   (this **not** mean that we tested this on Plone 4.1) yet [keul]
 * removed CMF skins directory (having it only for customize the ``getNotAddableTypes``
   script was not a good idea [keul]
+* splitted the GS profile in two, a default core ones and another ones for register also
+  the Page-like content. In this way a use could *not* use the FormOnline content [keul]
+* FormOnline content set as not searchable and not shown in navigation [keul]
 
 0.2.0 (2011-05-06)
 ------------------

@@ -1,11 +1,4 @@
 <?xml version="1.0"?>
-<object name="portal_workflow" meta_type="Plone Workflow Tool">
- <property
-    name="title">Contains workflow definitions for your portal</property>
+<object name="portal_workflow">
  <object name="formonline_workflow" meta_type="Workflow"/>
- <bindings> 
-  <type type_id="FormOnline">
-   <bound-workflow workflow_id="formonline_workflow"/>
-  </type>
- </bindings>
 </object>

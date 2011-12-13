@@ -1,0 +1,26 @@
+<div xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="auslfe.formonline.content"
+     id="formOnlineWorflowInfo"
+     tal:define="wtool python:view.portal_workflow;
+                 context_state python:wtool.getInfoFor(context, 'review_state');">
+
+		<dl class="portalMessage" tal:condition="python:context_state=='private'">
+			<dt i18n:translate="">Note</dt>
+			<dd i18n:translate="private_msg">
+				The form has not been submitted yet.
+			</dd>
+		</dl>
+		<dl class="portalMessage" tal:condition="python:context_state=='pending_approval'">
+			<dt i18n:translate="">Note</dt>
+			<dd i18n:translate="pending_approval">
+				Overseer has not approved this form yet.
+			</dd>
+		</dl>
+		<dl class="portalMessage" tal:condition="python:context_state=='pending_dispatch'">
+			<dt i18n:translate="">Note</dt>
+			<dd i18n:translate="pending_dispatch">
+				This activity has not been confirmed yet.
+			</dd>
+		</dl>
+
+</div>
