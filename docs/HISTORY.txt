@@ -11,6 +11,8 @@ Changelog
 * splitted the GS profile in two, a default core ones and another ones for register also
   the Page-like content. In this way a use could *not* use the FormOnline content [keul]
 * FormOnline content set as not searchable and not shown in navigation [keul]
+* removed the useless FormOnline view, transforming it to a viewlet registered for all
+  content types marked as ``IFormOnline`` [keul]
 
 0.2.0 (2011-05-06)
 ------------------
