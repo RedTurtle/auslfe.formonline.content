@@ -25,9 +25,9 @@ def formOnlineNotificationMail(formonline, event):
     subject = ''
     
     if review_state == 'pending_approval':
-        addresses = getAddresses('Editor',formonline)
+        addresses = getAddresses('Editor', formonline)
     elif review_state == 'pending_dispatch':
-        addresses = getAddresses('Reviewer',formonline)
+        addresses = getAddresses('Reviewer', formonline)
     
     if addresses:
         sendNotificationMail(formonline, review_state, addresses)
@@ -90,8 +90,10 @@ def get_global_roles(formonline):
 
     return tuple(result)
 
-def getAddresses(role,formonline):
-    """Returns a list of email of users with a specific role on a Form Online content, from a local roles structure."""
+def getAddresses(role, formonline):
+    """
+    Returns a list of email of users with a specific role on a Form Online content,
+    from a local roles structure."""
     pm = getToolByName(formonline,'portal_membership')
     globals_roles = get_global_roles(formonline)
     users = []
@@ -131,7 +133,6 @@ def sendNotificationMail(formonline, review_state, addresses):
                    )
 
     if review_state == 'pending_approval':
-        addresses = getAddresses('Editor',formonline)
         subject = _(msgid='subject_pending_approval',
                     default=u'[Form Online] - Form Online in pending state approval',
                     domain="auslfe.formonline.content",
@@ -147,7 +148,6 @@ Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
 
     elif review_state == 'pending_dispatch':
-        addresses = getAddresses('Reviewer',formonline)
         subject = _(msgid='subject_pending_dispatch',
                     default=u'[Form Online] - Form Online in pending state dispatch',
                     domain="auslfe.formonline.content",
@@ -163,6 +163,7 @@ Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
     
     sendEmail(formonline, addresses, subject, text)
+
 
 def sendEmail(formonline, addresses, subject, rstText, cc = None):
     """
