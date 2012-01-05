@@ -141,7 +141,7 @@ def sendNotificationMail(formonline, review_state, addresses):
 
 this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
 
-It is waiting for your approval. Follow the link below for perform you actions:
+It is waiting for your approval. Follow the link below for perform your actions:
 ${formonline_url}
 
 Regards
@@ -156,7 +156,7 @@ Regards
 
 this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
 
-The request has been approved and it's waiting for your confirmation. Follow the link below for perform you actions:
+The request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:
 ${formonline_url}
 
 Regards

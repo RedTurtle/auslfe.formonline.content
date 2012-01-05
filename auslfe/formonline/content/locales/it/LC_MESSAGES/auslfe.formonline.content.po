@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-12-13 15:02+0000\n"
+"POT-Creation-Date: 2012-01-05 08:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Federica D'Elia <federica.delia@redturtle.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,8 @@ msgstr "Modulistica Online"
 msgid "Note"
 msgstr "Nota"
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform you actions:\n${formonline_url}\n\nRegards\n"
-#: ../event.py:139
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform your actions:\n${formonline_url}\n\nRegards\n"
+#: ../event.py:140
 msgid "mail_text_approval_required"
 msgstr ""
 "Gentile utente,\n"
@@ -35,7 +35,7 @@ msgstr ""
 "\n"
 "Saluti"
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform you actions:\n${formonline_url}\n\nRegards\n"
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:\n${formonline_url}\n\nRegards\n"
 #: ../event.py:155
 msgid "mail_text_dispatch_required"
 msgstr ""
@@ -64,7 +64,7 @@ msgid "private_msg"
 msgstr "Questo modulo non è ancora stato inviato."
 
 #. Default: "[Form Online] - Form Online in pending state approval"
-#: ../event.py:135
+#: ../event.py:136
 msgid "subject_pending_approval"
 msgstr "[Modulistica] - Modulo in attesa di approvazione"
 
