@@ -1,6 +1,7 @@
 """Main product initializer
 """
 
+import logging
 from zope.i18nmessageid import MessageFactory
 from auslfe.formonline.content import config
 
@@ -13,6 +14,7 @@ from Products.CMFCore import utils
 # like _(u"message") will then be extracted by i18n tools for translation.
 
 formonline_contentMessageFactory = MessageFactory('auslfe.formonline.content')
+logger = logging.getLogger('auslfe.formonline.content')
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.

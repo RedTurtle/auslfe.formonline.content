@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from zope.annotation import IAnnotations
 from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_inner, aq_base, aq_parent
 from auslfe.formonline.content import formonline_contentMessageFactory as _
+from auslfe.formonline.content import logger
 from Products.PageTemplates.GlobalTranslationService import getGlobalTranslationService
 from email.MIMEText import MIMEText
 from Products.CMFPlone.utils import safe_unicode
@@ -25,9 +27,14 @@ def formOnlineNotificationMail(formonline, event):
     subject = ''
     
     if review_state == 'pending_approval':
-        addresses = getAddresses('Editor', formonline)
+        ann = IAnnotations(formonline)
+        # See auslfe.formonline.tokenaccess
+        if ann.get('share-tokens'):
+            addresses = (ann['share-tokens']['email'],)
+        else:
+            addresses = getAddressesFromRole('Editor', formonline)            
     elif review_state == 'pending_dispatch':
-        addresses = getAddresses('Reviewer', formonline)
+        addresses = getAddressesFromRole('Reviewer', formonline)
     
     if addresses:
         sendNotificationMail(formonline, review_state, addresses)
@@ -90,7 +97,7 @@ def get_global_roles(formonline):
 
     return tuple(result)
 
-def getAddresses(role, formonline):
+def getAddressesFromRole(role, formonline):
     """
     Returns a list of email of users with a specific role on a Form Online content,
     from a local roles structure."""
@@ -126,10 +133,23 @@ def sendNotificationMail(formonline, review_state, addresses):
 
     _ = getGlobalTranslationService().translate
 
+    ann = IAnnotations(formonline)
+    # See auslfe.formonline.tokenaccess
+    if ann.get('share-tokens'):
+        path = '/'.join(formonline.getPhysicalPath()).replace('/%s/' % portal.getId(), '')
+        formonline_url = '%s/@@consume-powertoken-first?path=%s&token=%s' % (
+                                                                             portal_url(),
+                                                                             path,
+                                                                             ann['share-tokens']['view']
+                                                                             )
+        logger.info(formonline_url)
+    else:
+        formonline_url = su(formonline.absolute_url())
+
     mapping = dict(formonline_title = su(formonline.title_or_id()),
                    insertion_date = su(insertion_date),
                    formonline_owner = su(formonlineAuthor),
-                   formonline_url = su(formonline.absolute_url()),
+                   formonline_url = formonline_url,
                    )
 
     if review_state == 'pending_approval':
