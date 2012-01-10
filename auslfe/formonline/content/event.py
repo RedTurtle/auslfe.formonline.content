@@ -5,7 +5,12 @@ from Products.CMFCore.utils import getToolByName
 from Acquisition import aq_inner, aq_base, aq_parent
 from auslfe.formonline.content import formonline_contentMessageFactory as _
 from auslfe.formonline.content import logger
-from Products.PageTemplates.GlobalTranslationService import getGlobalTranslationService
+try:
+    from Products.PageTemplates.GlobalTranslationService import getGlobalTranslationService
+    PLONE3 = True
+except ImportError:
+    from zope.i18n import translate as i18ntranslate
+    PLONE3 = False
 from email.MIMEText import MIMEText
 from Products.CMFPlone.utils import safe_unicode
 import socket
@@ -131,7 +136,10 @@ def sendNotificationMail(formonline, review_state, addresses):
 
     insertion_date = formonline.toLocalizedTime(formonline.created())
 
-    _ = getGlobalTranslationService().translate
+    if PLONE3:
+        _ = getGlobalTranslationService().translate
+    else:
+        _ = i18ntranslate
 
     ann = IAnnotations(formonline)
     # See auslfe.formonline.tokenaccess
@@ -213,8 +221,11 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
     email_msg.epilogue = ''
 
     # Translate the body text
-    ts = getGlobalTranslationService()
-    rstText = ts.translate('auslfe.formonline.content', rstText, context=formonline)
+    if PLONE3:
+        translate = getGlobalTranslationService().translate
+    else:
+        translate = i18ntranslate
+    rstText = translate('auslfe.formonline.content', rstText, context=formonline)
     # We must choose the body charset manually
     for body_charset in 'US-ASCII', charset, 'UTF-8':
         try:
