@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-01-05 08:32+0000\n"
+"POT-Creation-Date: 2012-01-10 12:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,12 +26,12 @@ msgid "Note"
 msgstr ""
 
 #. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform your actions:\n${formonline_url}\n\nRegards\n"
-#: ../event.py:140
+#: ../event.py:160
 msgid "mail_text_approval_required"
 msgstr ""
 
 #. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:\n${formonline_url}\n\nRegards\n"
-#: ../event.py:155
+#: ../event.py:175
 msgid "mail_text_dispatch_required"
 msgstr ""
 
@@ -51,12 +51,12 @@ msgid "private_msg"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online in pending state approval"
-#: ../event.py:136
+#: ../event.py:156
 msgid "subject_pending_approval"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online in pending state dispatch"
-#: ../event.py:151
+#: ../event.py:171
 msgid "subject_pending_dispatch"
 msgstr ""
 

@@ -9,7 +9,7 @@ The basic installation of this product simply provide proper interface and workf
 the "Form Online Adapter".
 
 An alternative import step ("Form Online: include FormOnline type") will also register a new
-content type that automatically use thw proper workflow. This can simplify a lot the site configuration
+content type that automatically use the proper workflow. This can simplify a lot the site configuration
 for not experienced Plone administrators.
 
 Credits
@@ -29,6 +29,6 @@ Authors
 
 This product was developed by RedTurtle Technology team.
 
-.. image:: http://www.redturtle.net/redturtle_banner.png
+.. image:: http://www.redturtle.it/redturtle_banner.png
    :alt: RedTurtle Technology Site
-   :target: http://www.redturtle.net/
+   :target: http://www.redturtle.it/

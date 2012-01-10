@@ -5,7 +5,9 @@ Changelog
 ------------------
 
 * fixed typo in translations [keul]
-* added a soft dependency on ``auslfe.formonline.tokenacces`` [keul]
+* added a soft dependency on `auslfe.formonline.tokenaccess` [keul]
+
+__ pypi.python.org/pypi/auslfe.formonline.tokenaccess
 
 0.3.0 (2011-12-13)
 ------------------
