@@ -150,7 +150,7 @@ def sendNotificationMail(formonline, review_state, addresses):
                                                                              path,
                                                                              ann['share-tokens']['view']
                                                                              )
-        logger.info(formonline_url)
+        logger.debug(formonline_url)
     else:
         formonline_url = su(formonline.absolute_url())
 
