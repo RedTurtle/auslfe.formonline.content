@@ -4,7 +4,7 @@ Changelog
 0.4.1 (Unreleased)
 ------------------
 
-* downgraded to debug the print of token URL message (when used) [keul]
+* downgraded to debug level the print of token URL message (when used) [keul]
 
 0.4.0 (2012-01-11)
 ------------------
