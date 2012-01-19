@@ -283,16 +283,16 @@ htmlTemplate = """
 
     <style type="text/css" media="all">
 <!--
-BODY {
+body {
     font-size: 0.9em;
 }
 
-H4 {
+h4 {
     font-size: 1.2em;
     font-weight: bold;
 }
 
-DT {
+dt {
     font-weight: bold;
 }
 -->
