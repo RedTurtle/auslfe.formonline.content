@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 * fixed error while retrieving e-mail [keul]
+* Generic Setup profile version was not updated [keul]
 
 0.5.0 (2012-01-20)
 ------------------
