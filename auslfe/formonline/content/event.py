@@ -35,18 +35,14 @@ def formOnlineNotificationMail(formonline, event):
             addresses = getAddressesFromRole('Editor', formonline)
     elif event.action == 'approval':
         addresses = getAddressesFromRole('Reviewer', formonline)
-    elif event.action == 'dispatch':
-        addresses = getAddressesFromRole('Owner', formonline)
-        if ann.get('owner-email'):
-            addresses.append(ann.get('owner-email'))        
-    # reject
-    elif event.action == 'retract_approval' or event.action == 'retract_dispatch':
+    elif event.action == 'dispatch' or event.action == 'retract_approval' or event.action == 'retract_dispatch':
         addresses = getAddressesFromRole('Owner', formonline)
         if ann.get('owner-email'):
             addresses.append(ann.get('owner-email'))
+
     if addresses:
         sendNotificationMail(formonline, event.action, addresses)
-    
+
 def get_inherited(formonline):
     """Return True if local roles are inherited here.
     """
@@ -146,7 +142,7 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
 
     ann = IAnnotations(formonline)
     # See auslfe.formonline.tokenaccess
-    if ann.get('share-tokens'):
+    if ann.get('share-tokens') and worfklow_action == 'submit':
         path = '/'.join(formonline.getPhysicalPath()).replace('/%s/' % portal.getId(), '')
         formonline_url = '%s/@@consume-powertoken-first?path=%s&token=%s' % (
                                                                              portal_url(),
