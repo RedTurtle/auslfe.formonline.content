@@ -192,7 +192,7 @@
              title="Editor and Manager retract approval"
              new_state="private" trigger="USER"
              before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action= retract_approval"
+  <action url="%(content_url)s/content_status_modify?workflow_action=retract_approval"
           category="workflow">Retract content</action>
   <guard>
    <guard-permission>Modify portal content</guard-permission>
@@ -202,7 +202,7 @@
              title="Reviewer and Manager retract dispatch"
              new_state="private" trigger="USER"
              before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action= retract_dispatch"
+  <action url="%(content_url)s/content_status_modify?workflow_action=retract_dispatch"
           category="workflow">Retract content</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>

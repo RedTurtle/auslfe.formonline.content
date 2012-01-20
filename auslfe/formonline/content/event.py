@@ -21,28 +21,31 @@ from reStructuredText import HTML as rstHTML
 
 def formOnlineNotificationMail(formonline, event):
     """
-    When the state of a Form Online changes in one of the states in
-    ['pending_approval','pending_dispatch'], send a notification email.
+    When the state of a Form Online change send a notification email.
     """
-    portal_workflow = getToolByName(formonline,'portal_workflow')
-    review_state = portal_workflow.getInfoFor(formonline,'review_state')
-    
     addresses = []
-    text = ''
-    subject = ''
+    ann = IAnnotations(formonline)
     
-    if review_state == 'pending_approval':
+    if event.action == 'submit':
         ann = IAnnotations(formonline)
         # See auslfe.formonline.tokenaccess
         if ann.get('share-tokens'):
             addresses = (ann['share-tokens']['email'],)
         else:
-            addresses = getAddressesFromRole('Editor', formonline)            
-    elif review_state == 'pending_dispatch':
+            addresses = getAddressesFromRole('Editor', formonline)
+    elif event.action == 'approval':
         addresses = getAddressesFromRole('Reviewer', formonline)
-    
+    elif event.action == 'dispatch':
+        addresses = getAddressesFromRole('Owner', formonline)
+        if ann.get('owner-email'):
+            addresses.append(ann.get('owner-email'))        
+    # reject
+    elif event.action == 'retract_approval' or event.action == 'retract_dispatch':
+        addresses = getAddressesFromRole('Owner', formonline)
+        if ann.get('owner-email'):
+            addresses.append(ann.get('owner-email'))
     if addresses:
-        sendNotificationMail(formonline, review_state, addresses)
+        sendNotificationMail(formonline, event.action, addresses)
     
 def get_inherited(formonline):
     """Return True if local roles are inherited here.
@@ -114,7 +117,7 @@ def getAddressesFromRole(role, formonline):
             users.append(pm.getMemberById(user).getProperty('email'))
     return users
 
-def sendNotificationMail(formonline, review_state, addresses):
+def sendNotificationMail(formonline, worfklow_action, addresses):
     """
     Send a notification email to the list of addresses
     """
@@ -160,7 +163,7 @@ def sendNotificationMail(formonline, review_state, addresses):
                    formonline_url = formonline_url,
                    )
 
-    if review_state == 'pending_approval':
+    if worfklow_action == 'submit':
         subject = _(msgid='subject_pending_approval',
                     default=u'[Form Online] - Form Online in pending state approval',
                     domain="auslfe.formonline.content",
@@ -175,7 +178,7 @@ ${formonline_url}
 Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
 
-    elif review_state == 'pending_dispatch':
+    elif worfklow_action == 'approval':
         subject = _(msgid='subject_pending_dispatch',
                     default=u'[Form Online] - Form Online in pending state dispatch',
                     domain="auslfe.formonline.content",
@@ -189,7 +192,37 @@ ${formonline_url}
 
 Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
-    
+
+    elif worfklow_action == 'dispatch':
+        subject = _(msgid='subject_dispatched',
+                    default=u'[Form Online] - Form Online approved',
+                    domain="auslfe.formonline.content",
+                    context=formonline)
+        text = _(msgid='mail_text_dispatched', default=u"""Dear user,
+
+this is a personal communication regarding the Form Online **${formonline_title}**.
+
+The request has been *approved*. Follow the link below to see the document:
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+
+    elif worfklow_action == 'retract_approval' or worfklow_action == 'retract_dispatch':
+        subject = _(msgid='subject_rejected',
+                    default=u'[Form Online] - Form Online rejected',
+                    domain="auslfe.formonline.content",
+                    context=formonline)
+        text = _(msgid='mail_text_rejected', default=u"""Dear user,
+
+this is a personal communication regarding the Form Online **${formonline_title}**.
+
+The request has been *rejected*. Follow the link below to see the document:
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+
     sendEmail(formonline, addresses, subject, text)
 
 
@@ -216,7 +249,6 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         # formataddr probably got confused by special characters.
         mfrom - from_address
 
-
     email_msg = MIMEMultipart('alternative')
     email_msg.epilogue = ''
 
@@ -227,7 +259,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         translate = i18ntranslate
     rstText = translate('auslfe.formonline.content', rstText, context=formonline)
     # We must choose the body charset manually
-    for body_charset in 'US-ASCII', charset, 'UTF-8':
+    for body_charset in (charset, 'UTF-8', 'US-ASCII'):
         try:
             rstText = rstText.encode(body_charset)
         except UnicodeError:
@@ -245,21 +277,22 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
 
     for address in addresses:
         address = safe_unicode(address, charset)
-        try:
-            # Note that charset is only used for the headers, not
-            # for the body text as that is a Message already.
-            mailHost.secureSend(message = email_msg,
-                                mto = address,
-                                mfrom = mfrom,
-                                subject = subject,
-                                charset = charset)
-        except socket.error, exc:
-            log_exc(('Could not send email from %s to %s regarding issue '
-                     'in content %s\ntext is:\n%s\n') % (
-                    mfrom, address, formonline.absolute_url(), email_msg))
-            log_exc("Reason: %s: %r" % (exc.__class__.__name__, str(exc)))
-        except:
-            raise
+        if address:
+            try:
+                # Note that charset is only used for the headers, not
+                # for the body text as that is a Message already.
+                mailHost.secureSend(message = email_msg,
+                                    mto = address,
+                                    mfrom = mfrom,
+                                    subject = subject,
+                                    charset = charset)
+            except socket.error, exc:
+                log_exc(('Could not send email from %s to %s regarding issue '
+                         'in content %s\ntext is:\n%s\n') % (
+                        mfrom, address, formonline.absolute_url(), email_msg))
+                log_exc("Reason: %s: %r" % (exc.__class__.__name__, str(exc)))
+            except:
+                raise
 
 def renderHTML(rstText, lang='en', charset='utf-8'):
     """Convert the given rST into a full XHTML transitional document.

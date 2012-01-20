@@ -1,11 +1,14 @@
 Changelog
 =========
 
-0.4.1 (Unreleased)
+0.5.0 (Unreleased)
 ------------------
 
 * downgraded to debug level the print of token URL message (when used) [keul]
 * fixed workflow's worklist with right state id (if anybody still using it) [keul]
+* fixed workflow reject/retract transitions [keul]
+* the owner of the form is notified when the form is accepted and rejected [keul]
+* supported notification also for anonymous submitters [keul]
 
 0.4.0 (2012-01-11)
 ------------------
