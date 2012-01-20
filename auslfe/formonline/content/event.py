@@ -110,7 +110,9 @@ def getAddressesFromRole(role, formonline):
     users = []
     for user,roles,role_type,name in globals_roles:
         if role in roles:
-            users.append(pm.getMemberById(user).getProperty('email'))
+            member = pm.getMemberById(user)
+            if member:
+                users.append(member.getProperty('email'))
     return users
 
 def sendNotificationMail(formonline, worfklow_action, addresses):
