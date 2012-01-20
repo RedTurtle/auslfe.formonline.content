@@ -220,12 +220,12 @@
  </transition>
  <worklist worklist_id="reviewer_queue" title="">
   <description>Reviewer tasks</description>
-  <action url="%(portal_url)s/search?review_state=pending"
-          category="global">Pending (%(count)d)</action>
+  <action url="%(portal_url)s/search?review_state=pending_dispatch"
+          category="global">Pending Dispatch (%(count)d)</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>
-  <match name="review_state" values="pending"/>
+  <match name="review_state" values="pending_dispatch"/>
  </worklist>
  <variable variable_id="action" for_catalog="False"
            for_status="True" update_always="True">

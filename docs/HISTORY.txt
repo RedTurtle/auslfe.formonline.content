@@ -5,6 +5,7 @@ Changelog
 ------------------
 
 * downgraded to debug level the print of token URL message (when used) [keul]
+* fixed workflow's worklist with right state id (if anybody still using it) [keul]
 
 0.4.0 (2012-01-11)
 ------------------
