@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.6.0 (Unreleased)
+------------------
+
+* fixed e-mail layout [keul]
+* when a workflow comment is given, it's added to the response e-mail
+  when rejecting it [keul]
+
 0.5.1 (2012-01-20)
 ------------------
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-01-20 14:25+0000\n"
+"POT-Creation-Date: 2012-02-15 15:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: Federica D'Elia <federica.delia@redturtle.it>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,8 @@ msgstr "Modulistica Online"
 msgid "Note"
 msgstr "Nota"
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform your actions:\n${formonline_url}\n\nRegards\n"
-#: ../event.py:171
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:175
 msgid "mail_text_approval_required"
 msgstr ""
 "Gentile utente,\n"
@@ -31,12 +31,13 @@ msgstr ""
 "questa è una comunicazione personale riguardo il Modulo Online **${formonline_title}**, creato il **${insertion_date}** da **${formonline_owner}**.\n"
 "\n"
 "Sta attendendo la sua approvazione. Segua il link sotto per eseguire le necessarie azioni:\n"
+"\n"
 "${formonline_url}\n"
 "\n"
 "Saluti"
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:\n${formonline_url}\n\nRegards\n"
-#: ../event.py:186
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:191
 msgid "mail_text_dispatch_required"
 msgstr ""
 "Gentile utente,\n"
@@ -44,12 +45,13 @@ msgstr ""
 "questa è una comunicazione personale riguardo il Modulo Online **${formonline_title}**, creato il **${insertion_date}** da **${formonline_owner}**.\n"
 "\n"
 "La richiesta è stata accettata e attende la sua conferma. Segua il link sotto per eseguire le necessarie azioni:\n"
+"\n"
 "${formonline_url}\n"
 "\n"
 "Saluti"
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *approved*. Follow the link below to see the document:\n${formonline_url}\n\nRegards\n"
-#: ../event.py:201
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *approved*. Follow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:207
 msgid "mail_text_dispatched"
 msgstr ""
 "Gentile utente,\n"
@@ -57,19 +59,25 @@ msgstr ""
 "questa è una comunicazione personale riguardo il Modulo Online **${formonline_title}**.\n"
 "\n"
 "La richiesta è stata *approvata*. Segua il link sotto per visualizzare il documento:\n"
+"\n"
 "${formonline_url}\n"
 "\n"
 "Saluti"
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *rejected*. Follow the link below to see the document:\n${formonline_url}\n\nRegards\n"
-#: ../event.py:216
+#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *rejected*. The overseer provided the following comment::\n\n${comment}\n\nFollow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:223
 msgid "mail_text_rejected"
 msgstr ""
 "Gentile utente,\n"
 "\n"
 "questa è una comunicazione personale riguardo il Modulo Online **${formonline_title}**.\n"
 "\n"
-"La richiesta è stata *rifiutata*. Segua il link sotto per visualizzare il documento:\n"
+"La richiesta è stata *rifiutata*. Il responsabile ha fornito questo commento:\n"
+"\n"
+"${comment}\n"
+"\n"
+"Segua il link sotto per visualizzare il documento:\n"
+"\n"
 "${formonline_url}\n"
 "\n"
 "Saluti"
@@ -90,22 +98,22 @@ msgid "private_msg"
 msgstr "Questo modulo non è ancora stato inviato."
 
 #. Default: "[Form Online] - Form Online approved"
-#: ../event.py:197
+#: ../event.py:203
 msgid "subject_dispatched"
 msgstr "[Modulistica] - Modulo approvato"
 
 #. Default: "[Form Online] - Form Online in pending state approval"
-#: ../event.py:167
+#: ../event.py:171
 msgid "subject_pending_approval"
 msgstr "[Modulistica] - Modulo in attesa di approvazione"
 
 #. Default: "[Form Online] - Form Online in pending state dispatch"
-#: ../event.py:182
+#: ../event.py:187
 msgid "subject_pending_dispatch"
 msgstr "[Modulistica] - Modulo in attesa di completamento"
 
 #. Default: "[Form Online] - Form Online rejected"
-#: ../event.py:212
+#: ../event.py:219
 msgid "subject_rejected"
 msgstr "[Modulistica] - Modulo rifiutato"
 

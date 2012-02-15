@@ -122,6 +122,7 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
     portal_url = getToolByName(formonline, 'portal_url')
     portal = portal_url.getPortalObject()
     portal_membership = getToolByName(portal, 'portal_membership')
+    portal_workflow = getToolByName(portal, 'portal_workflow')
     
     plone_utils = getToolByName(portal, 'plone_utils')
     charset = plone_utils.getSiteEncoding()
@@ -155,10 +156,18 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
     else:
         formonline_url = su(formonline.absolute_url())
 
+    comment = portal_workflow.getInfoFor(formonline, 'comments')
+    if comment:
+        lines = comment.splitlines()
+        comment = ""
+        for l in lines:
+            comment+="\t%s\n" % l
+
     mapping = dict(formonline_title = su(formonline.title_or_id()),
                    insertion_date = su(insertion_date),
                    formonline_owner = su(formonlineAuthor),
                    formonline_url = formonline_url,
+                   comment = comment,
                    )
 
     if worfklow_action == 'submit':
@@ -171,6 +180,7 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
 this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
 
 It is waiting for your approval. Follow the link below for perform your actions:
+
 ${formonline_url}
 
 Regards
@@ -186,6 +196,7 @@ Regards
 this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
 
 The request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:
+
 ${formonline_url}
 
 Regards
@@ -201,6 +212,7 @@ Regards
 this is a personal communication regarding the Form Online **${formonline_title}**.
 
 The request has been *approved*. Follow the link below to see the document:
+
 ${formonline_url}
 
 Regards
@@ -215,12 +227,17 @@ Regards
 
 this is a personal communication regarding the Form Online **${formonline_title}**.
 
-The request has been *rejected*. Follow the link below to see the document:
+The request has been *rejected*. The overseer provided the following comment::
+
+${comment}
+
+Follow the link below to see the document:
+
 ${formonline_url}
 
 Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
-
+    
     sendEmail(formonline, addresses, subject, text)
 
 
