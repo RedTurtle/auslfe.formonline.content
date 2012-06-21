@@ -199,14 +199,14 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
                         context=formonline)
             text = _(msgid='mail_text_approval_required', default=u"""Dear user,
     
-    this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
-    
-    It is waiting for your approval. Follow the link below for perform your actions:
-    
-    ${formonline_url}
-    
-    Regards
-    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
+
+It is waiting for your approval. Follow the link below for perform your actions:
+
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
     
         elif worfklow_action == 'approval':
             subject = _(msgid='subject_pending_dispatch',
@@ -215,14 +215,14 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
                         context=formonline)
             text = _(msgid='mail_text_dispatch_required', default=u"""Dear user,
     
-    this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
-    
-    The request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:
-    
-    ${formonline_url}
-    
-    Regards
-    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
+
+The request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:
+
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
     
         elif worfklow_action == 'dispatch':
             subject = _(msgid='subject_dispatched',
@@ -231,14 +231,14 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
                         context=formonline)
             text = _(msgid='mail_text_dispatched', default=u"""Dear user,
     
-    this is a personal communication regarding the Form Online **${formonline_title}**.
-    
-    The request has been *approved*. Follow the link below to see the document:
-    
-    ${formonline_url}
-    
-    Regards
-    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+this is a personal communication regarding the Form Online **${formonline_title}**.
+
+The request has been *approved*. Follow the link below to see the document:
+
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
     
         elif worfklow_action == 'retract_approval' or worfklow_action == 'retract_dispatch':
             subject = _(msgid='subject_rejected',
@@ -247,18 +247,18 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
                         context=formonline)
             text = _(msgid='mail_text_rejected', default=u"""Dear user,
     
-    this is a personal communication regarding the Form Online **${formonline_title}**.
-    
-    The request has been *rejected*. The overseer provided the following comment::
-    
-    ${comment}
-    
-    Follow the link below to see the document:
-    
-    ${formonline_url}
-    
-    Regards
-    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+this is a personal communication regarding the Form Online **${formonline_title}**.
+
+The request has been *rejected*. The overseer provided the following comment::
+
+${comment}
+
+Follow the link below to see the document:
+
+${formonline_url}
+
+Regards
+""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
     
     sendEmail(formonline, addresses, subject, text)
 
