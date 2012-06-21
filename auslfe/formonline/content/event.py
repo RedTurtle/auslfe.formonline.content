@@ -189,9 +189,14 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
         elif worfklow_action == 'retract_approval' or worfklow_action == 'retract_dispatch':
             subject = form_online_adapter.getFormOnlineRetractSubject()
             text = form_online_adapter.getFormOnlineRetractMessage()
+        text = text.decode("utf-8")
         for variable in mapping:
             text = text.replace("${%s}" % variable, mapping[variable])
     else:
+        # ho mantentuto il vecchio codice (dove l'oggetto e il testo delle email sono fissi),
+        # nel caso in cui ci siano vecchi oggetti Form Online che non abbiano l'annotazione 
+        # che indica il formOnlineAdapter corrispondente, da cui prendere (dai suoi campi)
+        # l'oggetto e il testo delle email
         if worfklow_action == 'submit':
             subject = _(msgid='subject_pending_approval',
                         default=u'[Form Online] - Form Online in pending state approval',
