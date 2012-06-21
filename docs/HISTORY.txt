@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.x.x (2012-xx-xx)
+------------------
+
+* Changed sendNotificationMail for get subject and text of email from the fields of FormOnlineAdapter [fdelia]
+  
 0.6.0 (2012-02-15)
 ------------------
 

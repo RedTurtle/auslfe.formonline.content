@@ -123,6 +123,7 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
     portal = portal_url.getPortalObject()
     portal_membership = getToolByName(portal, 'portal_membership')
     portal_workflow = getToolByName(portal, 'portal_workflow')
+    portal_catalog = getToolByName(portal, 'portal_catalog')
     
     plone_utils = getToolByName(portal, 'plone_utils')
     charset = plone_utils.getSiteEncoding()
@@ -169,74 +170,95 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
                    formonline_url = formonline_url,
                    comment = comment,
                    )
-
-    if worfklow_action == 'submit':
-        subject = _(msgid='subject_pending_approval',
-                    default=u'[Form Online] - Form Online in pending state approval',
-                    domain="auslfe.formonline.content",
-                    context=formonline)
-        text = _(msgid='mail_text_approval_required', default=u"""Dear user,
-
-this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
-
-It is waiting for your approval. Follow the link below for perform your actions:
-
-${formonline_url}
-
-Regards
-""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
-
-    elif worfklow_action == 'approval':
-        subject = _(msgid='subject_pending_dispatch',
-                    default=u'[Form Online] - Form Online in pending state dispatch',
-                    domain="auslfe.formonline.content",
-                    context=formonline)
-        text = _(msgid='mail_text_dispatch_required', default=u"""Dear user,
-
-this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
-
-The request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:
-
-${formonline_url}
-
-Regards
-""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
-
-    elif worfklow_action == 'dispatch':
-        subject = _(msgid='subject_dispatched',
-                    default=u'[Form Online] - Form Online approved',
-                    domain="auslfe.formonline.content",
-                    context=formonline)
-        text = _(msgid='mail_text_dispatched', default=u"""Dear user,
-
-this is a personal communication regarding the Form Online **${formonline_title}**.
-
-The request has been *approved*. Follow the link below to see the document:
-
-${formonline_url}
-
-Regards
-""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
-
-    elif worfklow_action == 'retract_approval' or worfklow_action == 'retract_dispatch':
-        subject = _(msgid='subject_rejected',
-                    default=u'[Form Online] - Form Online rejected',
-                    domain="auslfe.formonline.content",
-                    context=formonline)
-        text = _(msgid='mail_text_rejected', default=u"""Dear user,
-
-this is a personal communication regarding the Form Online **${formonline_title}**.
-
-The request has been *rejected*. The overseer provided the following comment::
-
-${comment}
-
-Follow the link below to see the document:
-
-${formonline_url}
-
-Regards
-""", domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+    
+    formOnlineAdapter_UID = ann.get('formOnlineAdapter','')
+    formOnlineAdapter = formOnlineAdapter_UID and portal_catalog.searchResults(UID=formOnlineAdapter_UID) or []
+    
+    # get subject and text of email from the fields of FormOnlineAdapter
+    if formOnlineAdapter:
+        form_online_adapter = formOnlineAdapter[0].getObject()
+        if worfklow_action == 'submit':
+            subject = form_online_adapter.getFormOnlineSubmitSubject()
+            text = form_online_adapter.getFormOnlineSubmitMessage()
+        elif worfklow_action == 'approval':
+            subject = form_online_adapter.getFormOnlineApprovalSubject()
+            text = form_online_adapter.getFormOnlineApprovalMessage()
+        elif worfklow_action == 'dispatch':
+            subject = form_online_adapter.getFormOnlineDispatchSubject()
+            text = form_online_adapter.getFormOnlineDispatchMessage()
+        elif worfklow_action == 'retract_approval' or worfklow_action == 'retract_dispatch':
+            subject = form_online_adapter.getFormOnlineRetractSubject()
+            text = form_online_adapter.getFormOnlineRetractMessage()
+        for variable in mapping:
+            text = text.replace("${%s}" % variable, mapping[variable])
+    else:
+        if worfklow_action == 'submit':
+            subject = _(msgid='subject_pending_approval',
+                        default=u'[Form Online] - Form Online in pending state approval',
+                        domain="auslfe.formonline.content",
+                        context=formonline)
+            text = _(msgid='mail_text_approval_required', default=u"""Dear user,
+    
+    this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
+    
+    It is waiting for your approval. Follow the link below for perform your actions:
+    
+    ${formonline_url}
+    
+    Regards
+    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+    
+        elif worfklow_action == 'approval':
+            subject = _(msgid='subject_pending_dispatch',
+                        default=u'[Form Online] - Form Online in pending state dispatch',
+                        domain="auslfe.formonline.content",
+                        context=formonline)
+            text = _(msgid='mail_text_dispatch_required', default=u"""Dear user,
+    
+    this is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.
+    
+    The request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:
+    
+    ${formonline_url}
+    
+    Regards
+    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+    
+        elif worfklow_action == 'dispatch':
+            subject = _(msgid='subject_dispatched',
+                        default=u'[Form Online] - Form Online approved',
+                        domain="auslfe.formonline.content",
+                        context=formonline)
+            text = _(msgid='mail_text_dispatched', default=u"""Dear user,
+    
+    this is a personal communication regarding the Form Online **${formonline_title}**.
+    
+    The request has been *approved*. Follow the link below to see the document:
+    
+    ${formonline_url}
+    
+    Regards
+    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+    
+        elif worfklow_action == 'retract_approval' or worfklow_action == 'retract_dispatch':
+            subject = _(msgid='subject_rejected',
+                        default=u'[Form Online] - Form Online rejected',
+                        domain="auslfe.formonline.content",
+                        context=formonline)
+            text = _(msgid='mail_text_rejected', default=u"""Dear user,
+    
+    this is a personal communication regarding the Form Online **${formonline_title}**.
+    
+    The request has been *rejected*. The overseer provided the following comment::
+    
+    ${comment}
+    
+    Follow the link below to see the document:
+    
+    ${formonline_url}
+    
+    Regards
+    """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
     
     sendEmail(formonline, addresses, subject, text)
 
