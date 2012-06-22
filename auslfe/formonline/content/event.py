@@ -172,11 +172,11 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
                    )
     
     formOnlineAdapter_UID = ann.get('formOnlineAdapter','')
-    formOnlineAdapter = formOnlineAdapter_UID and portal_catalog.searchResults(UID=formOnlineAdapter_UID) or []
+    formOnlineAdapter = formOnlineAdapter_UID and portal_catalog.unrestrictedSearchResults(UID=formOnlineAdapter_UID) or []
     
     # get subject and text of email from the fields of FormOnlineAdapter
     if formOnlineAdapter:
-        form_online_adapter = formOnlineAdapter[0].getObject()
+        form_online_adapter = formOnlineAdapter[0]._unrestrictedGetObject()
         if worfklow_action == 'submit':
             subject = form_online_adapter.getFormOnlineSubmitSubject()
             text = form_online_adapter.getFormOnlineSubmitMessage()
