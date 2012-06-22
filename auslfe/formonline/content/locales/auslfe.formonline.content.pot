@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-02-15 15:23+0000\n"
+"POT-Creation-Date: 2012-06-22 10:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,23 +25,28 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:175
+#. Default: "No comments"
+#: ../event.py:162
+msgid "comment_retract"
+msgstr ""
+
+#. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:211
 msgid "mail_text_approval_required"
 msgstr ""
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:191
+#. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:227
 msgid "mail_text_dispatch_required"
 msgstr ""
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *approved*. Follow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:207
+#. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *approved*. Follow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:243
 msgid "mail_text_dispatched"
 msgstr ""
 
-#. Default: "Dear user,\n\nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *rejected*. The overseer provided the following comment::\n\n${comment}\n\nFollow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:223
+#. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *rejected*. The overseer provided the following comment::\n\n${comment}\n\nFollow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
+#: ../event.py:259
 msgid "mail_text_rejected"
 msgstr ""
 
@@ -61,22 +66,22 @@ msgid "private_msg"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online approved"
-#: ../event.py:203
+#: ../event.py:239
 msgid "subject_dispatched"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online in pending state approval"
-#: ../event.py:171
+#: ../event.py:207
 msgid "subject_pending_approval"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online in pending state dispatch"
-#: ../event.py:187
+#: ../event.py:223
 msgid "subject_pending_dispatch"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online rejected"
-#: ../event.py:219
+#: ../event.py:255
 msgid "subject_rejected"
 msgstr ""
 
