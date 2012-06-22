@@ -266,7 +266,7 @@ Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
         # converte il testo in HTML perchè sendEmail si aspetta che arrivi un messaggio HTML,
         # come nel caso default in cui l'annotazione del formOnlineAdapter è presente sul Form
-        rstHTML(rstText,input_encoding='utf-8',output_encoding='utf-8')
+        rstHTML(text,input_encoding='utf-8',output_encoding='utf-8')
     
     sendEmail(formonline, addresses, subject, text)
 
