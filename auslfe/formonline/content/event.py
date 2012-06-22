@@ -264,6 +264,9 @@ ${formonline_url}
 
 Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
+        # converte il testo in HTML perchè sendEmail si aspetta che arrivi un messaggio HTML,
+        # come nel caso default in cui l'annotazione del formOnlineAdapter è presente sul Form
+        rstHTML(rstText,input_encoding='utf-8',output_encoding='utf-8')
     
     sendEmail(formonline, addresses, subject, text)
 
@@ -271,9 +274,10 @@ Regards
 def sendEmail(formonline, addresses, subject, rstText, cc = None):
     """
     Send a email to the list of addresses
-    """
+    """    
     portal_url  = getToolByName(formonline, 'portal_url')
     plone_utils = getToolByName(formonline, 'plone_utils')
+    transforms = getToolByName(formonline, 'portal_transforms')
 
     portal      = portal_url.getPortalObject()
     mailHost    = plone_utils.getMailHost()
@@ -299,6 +303,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         translate = getGlobalTranslationService().translate
     else:
         translate = i18ntranslate
+    
     rstText = translate('auslfe.formonline.content', rstText, context=formonline)
     # We must choose the body charset manually
     for body_charset in (charset, 'UTF-8', 'US-ASCII'):
@@ -309,7 +314,11 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         else:
             break
 
-    textPart = MIMEText(rstText, 'plain', body_charset)
+    # il testo arriva in formato HTML, proviene dai campi RichWidget del 
+    # formOnlineAdapter con cui è stato generato l'oggetto FormOnline
+    # quindi converto la textPart da HTML a testo
+    stream = transforms.convertTo('text/plain', rstText, mimetype='text/html')
+    textPart = MIMEText(stream.getData().strip(), 'plain', body_charset)
     email_msg.attach(textPart)
     htmlPart = MIMEText(renderHTML(rstText, charset=body_charset),
                         'html', body_charset)
@@ -342,8 +351,7 @@ def renderHTML(rstText, lang='en', charset='utf-8'):
 
     kwargs = {'lang': lang,
               'charset': charset,
-              'body': rstHTML(rstText, input_encoding=charset,
-                              output_encoding=charset)}
+              'body': rstText}
     
     return htmlTemplate % kwargs
 
