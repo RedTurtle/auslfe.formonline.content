@@ -158,11 +158,16 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
         formonline_url = su(formonline.absolute_url())
 
     comment = portal_workflow.getInfoFor(formonline, 'comments')
-    if comment:
-        lines = comment.splitlines()
-        comment = ""
-        for l in lines:
-            comment+="\t%s\n" % l
+    if not comment:
+        comment = _(msgid='comment_retract',
+                    default=u'No comments',
+                    domain="auslfe.formonline.content",
+                    context=formonline)
+        
+    lines = comment.splitlines()
+    comment = ""
+    for l in lines:
+        comment+="\t%s\n" % l
 
     mapping = dict(formonline_title = su(formonline.title_or_id()),
                    insertion_date = su(insertion_date),
