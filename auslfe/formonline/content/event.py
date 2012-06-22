@@ -266,7 +266,7 @@ Regards
 """, domain="auslfe.formonline.content", context=formonline, mapping=mapping)
         # converte il testo in HTML perchè sendEmail si aspetta che arrivi un messaggio HTML,
         # come nel caso default in cui l'annotazione del formOnlineAdapter è presente sul Form
-        rstHTML(text,input_encoding='utf-8',output_encoding='utf-8')
+        text = rstHTML(text,input_encoding='utf-8',output_encoding='utf-8').decode("utf-8")
     
     sendEmail(formonline, addresses, subject, text)
 
@@ -303,7 +303,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         translate = getGlobalTranslationService().translate
     else:
         translate = i18ntranslate
-    
+        
     rstText = translate('auslfe.formonline.content', rstText, context=formonline)
     # We must choose the body charset manually
     for body_charset in (charset, 'UTF-8', 'US-ASCII'):
