@@ -1,13 +1,13 @@
 Changelog
 =========
 
-0.x.x (2012-xx-xx)
+0.7.0 (Unreleased)
 ------------------
 
 * Fix translation of mail_text_rejected, missed literal block [fdelia]
-* Fix error with comment 'Literal block expected; none found' in notification email [fdelia]
+* Fix error with comment "Literal block expected; none found" in notification email [fdelia]
 * Changed sendNotificationMail for get subject and text of email from the fields of FormOnlineAdapter [fdelia]
-  
+
 0.6.0 (2012-02-15)
 ------------------
 
