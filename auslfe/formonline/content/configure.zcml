@@ -10,10 +10,15 @@
 
   <include package=".browser" />
   <include package=".content" />
-  
+
+  <utility
+    factory=".HiddenProfiles"
+    name="auslfe.formonline.content"
+  /> 
+
   <genericsetup:registerProfile
       name="default"
-      title="Form Online: Content"
+      title="Form Online: contents configuration"
       directory="profiles/default"
       description="Base content support for the use of forms online"
       provides="Products.GenericSetup.interfaces.EXTENSION"

@@ -1,13 +1,14 @@
-"""Main product initializer
-"""
+# -*- coding: utf-8 -*-
 
 import logging
+
+from zope.interface import implements
 from zope.i18nmessageid import MessageFactory
 from auslfe.formonline.content import config
 
 from Products.Archetypes import atapi
 from Products.CMFCore import utils
-#from Products.CMFCore.permissions import setDefaultRoles
+from Products.CMFQuickInstallerTool.interfaces import INonInstallable
 
 # Define a message factory for when this product is internationalised.
 # This will be imported with the special name "_" in most modules. Strings
@@ -15,6 +16,16 @@ from Products.CMFCore import utils
 
 formonline_contentMessageFactory = MessageFactory('auslfe.formonline.content')
 logger = logging.getLogger('auslfe.formonline.content')
+
+class HiddenProfiles(object):
+    """This hides zope2 profiles from the add-ons control panel/ 
+    quick installer tool.
+    """
+    implements(INonInstallable)
+
+    def getNonInstallableProducts(self):
+        return ['auslfe.formonline.content']
+
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.

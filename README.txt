@@ -5,12 +5,12 @@ A simple Page-like content type for Plone, to be used with `auslfe.formonline.pf
 
 __ http://plone.org/products/auslfe.formonline.pfgadapter
 
-The basic installation of this product simply provide proper interface and workflow for use
-the "Form Online Adapter".
-
-An alternative import step ("Form Online: include FormOnline type") will also register a new
-content type that automatically use the proper workflow. This can simplify a lot the site configuration
-for not experienced Plone administrators.
+It provides two possible profiles:
+ 
+* A basic one ("*Form Online: contents configuration*"), that simply provide proper interface and workflow
+  for use the "Form Online Adapter".
+* An alternative import step ("Form Online: include FormOnline type") will also register a new
+  content type that automatically use the proper workflow.
 
 This product also include the complete notification by e-mail system of the workflow.
 

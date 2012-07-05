@@ -159,10 +159,17 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
 
     comment = portal_workflow.getInfoFor(formonline, 'comments')
     if not comment:
-        comment = _(msgid='comment_retract',
-                    default=u'No comments',
-                    domain="auslfe.formonline.content",
-                    context=formonline)
+        try:
+            comment = _(msgid='comment_retract',
+                        default=u'No comments',
+                        domain="auslfe.formonline.content",
+                        context=formonline)
+        except TypeError:
+            # On Plone 4
+            comment = _(msgid='comment_retract',
+                        default=u'No comments',
+                        domain="auslfe.formonline.content",
+                        context=formonline.REQUEST)
         
     lines = comment.splitlines()
     comment = ""
@@ -198,10 +205,7 @@ def sendNotificationMail(formonline, worfklow_action, addresses):
         for variable in mapping:
             text = text.replace("${%s}" % variable, mapping[variable])
     else:
-        # ho mantentuto il vecchio codice (dove l'oggetto e il testo delle email sono fissi),
-        # nel caso in cui ci siano vecchi oggetti Form Online che non abbiano l'annotazione 
-        # che indica il formOnlineAdapter corrispondente, da cui prendere (dai suoi campi)
-        # l'oggetto e il testo delle email
+        # Let's keep ol hardcoded messages, so FormOnline contents created before this version will still works
         if worfklow_action == 'submit':
             subject = _(msgid='subject_pending_approval',
                         default=u'[Form Online] - Form Online in pending state approval',
@@ -308,8 +312,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         translate = getGlobalTranslationService().translate
     else:
         translate = i18ntranslate
-        
-    rstText = translate('auslfe.formonline.content', rstText, context=formonline)
+
     # We must choose the body charset manually
     for body_charset in (charset, 'UTF-8', 'US-ASCII'):
         try:
@@ -319,9 +322,7 @@ def sendEmail(formonline, addresses, subject, rstText, cc = None):
         else:
             break
 
-    # il testo arriva in formato HTML, proviene dai campi RichWidget del 
-    # formOnlineAdapter con cui è stato generato l'oggetto FormOnline
-    # quindi converto la textPart da HTML a testo
+    # Text came from HTML text fields inside adapter, so I will convert it to simple text 
     stream = transforms.convertTo('text/plain', rstText, mimetype='text/html')
     textPart = MIMEText(stream.getData().strip(), 'plain', body_charset)
     email_msg.attach(textPart)
