@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.7.0 (Unreleased)
+0.7.0 (2012-07-12)
 ------------------
 
 * fix translation of mail_text_rejected, missed literal block [fdelia]
