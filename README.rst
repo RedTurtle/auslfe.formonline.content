@@ -7,9 +7,9 @@ __ http://plone.org/products/auslfe.formonline.pfgadapter
 
 It provides two possible profiles:
  
-* A basic one ("*Form Online: contents configuration*"), that simply provide proper interface and workflow
+* A basic ones ("*Form Online: contents configuration*"), that simply provide proper interface and workflow
   for use the "Form Online Adapter".
-* An alternative import step ("Form Online: include FormOnline type") will also register a new
+* An more complete ones ("Form Online: include FormOnline type") will also register a new
   content type that automatically use the proper workflow.
 
 This product also include the complete notification by e-mail system of the workflow.
