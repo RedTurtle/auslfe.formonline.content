@@ -1,12 +1,17 @@
 Changelog
 =========
 
-0.7.1 (unreleased)
+0.8.1 (unreleased)
 ------------------
 
 - Nothing changed yet.
 
 
+0.8.0 (2012-09-17)
+------------------
+
+* a new workflow has been added (simple workflow) [nicola.senno]
+	
 0.7.0 (2012-07-12)
 ------------------
 
