@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.8.1 (Unreleased)
+0.8.1 (2012-10-03)
 ------------------
 
 * fixed incomplete translations for the new workflow [keul]
