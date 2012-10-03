@@ -1,102 +1,105 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: auslfe.formonline.content\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2012-10-03 12:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Federica D'Elia <federica.delia@redturtle.it>\n"
-"Language-Team: RedTurtle Technology <sviluppoplone@redturtle.it>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: it\n"
-"Language-Name: Italian\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: plone\n"
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Approve content"
-msgstr "Approva il contenuto"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Dispatch"
-msgstr "Evaso"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Dispatch content"
-msgstr "Evadi il contenuto"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Editor and Manager retract approval"
-msgstr "Editor e Manager ritirano il contenuto"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Editor approves content"
-msgstr "Editor approva il contenuto"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Form Online Workflow"
-msgstr "Controllo di flusso della Modulistica Online"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Manager retracts submission"
-msgstr "Manager ritira la richiesta"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Owner submits content for approval"
-msgstr "Creatore invia il contenuto per approvazione"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Owner submits content for dispatch"
-msgstr "Creatore invia il contenuto per evasione"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Pending Approval"
-msgstr "Attesa di approvazione"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Pending Dispatch"
-msgstr "Attesa di evasione"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Private"
-msgstr "Privato"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Retract content"
-msgstr "Ritira il contenuto"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Reviewer and Manager retract dispatch"
-msgstr "Revisore e Manager ritirano l'evasione"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Reviewer dispatch content"
-msgstr "Revisore evade il contenuto"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Simple Form Online Workflow"
-msgstr "Controllo di flusso semplice per Modulista Online"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Single step workflow for Form Online documents"
-msgstr "Worlflow a singola approvazione per Modulistica Online"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Submit for approval"
-msgstr "Sottometti per l'approvazione"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow_single_step/definition.xml
 msgid "Submit for dispatch"
-msgstr "Invia per evasione"
+msgstr ""
 
 #: profiles/default/workflows/formonline_workflow/definition.xml
 msgid "Workflow for Form Online documents."
-msgstr "Controllo di flusso per i documenti Modulistica Online."
+msgstr ""
 

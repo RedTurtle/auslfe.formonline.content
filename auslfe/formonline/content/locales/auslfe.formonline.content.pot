@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-06-22 10:10+0000\n"
+"POT-Creation-Date: 2012-10-03 12:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,71 +17,71 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: auslfe.formonline.content\n"
 
-#: ../profiles/withtypes/types/FormOnline.xml
+#: ./profiles/withtypes/types/FormOnline.xml
 msgid "Form Online"
 msgstr ""
 
-#: ../browser/workflow_info_viewlet.pt:8
+#: ./browser/workflow_info_viewlet.pt:8
 msgid "Note"
 msgstr ""
 
 #. Default: "No comments"
-#: ../event.py:162
+#: ./event.py:163
 msgid "comment_retract"
 msgstr ""
 
 #. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nIt is waiting for your approval. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:211
+#: ./event.py:214
 msgid "mail_text_approval_required"
 msgstr ""
 
 #. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**, created on **${insertion_date}** by **${formonline_owner}**.\n\nThe request has been approved and it's waiting for your confirmation. Follow the link below for perform your actions:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:227
+#: ./event.py:230
 msgid "mail_text_dispatch_required"
 msgstr ""
 
 #. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *approved*. Follow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:243
+#: ./event.py:246
 msgid "mail_text_dispatched"
 msgstr ""
 
 #. Default: "Dear user,\n    \nthis is a personal communication regarding the Form Online **${formonline_title}**.\n\nThe request has been *rejected*. The overseer provided the following comment::\n\n${comment}\n\nFollow the link below to see the document:\n\n${formonline_url}\n\nRegards\n"
-#: ../event.py:259
+#: ./event.py:262
 msgid "mail_text_rejected"
 msgstr ""
 
 #. Default: "Overseer has not approved this form yet."
-#: ../browser/workflow_info_viewlet.pt:15
+#: ./browser/workflow_info_viewlet.pt:15
 msgid "pending_approval"
 msgstr ""
 
 #. Default: "This activity has not been confirmed yet."
-#: ../browser/workflow_info_viewlet.pt:21
+#: ./browser/workflow_info_viewlet.pt:21
 msgid "pending_dispatch"
 msgstr ""
 
 #. Default: "The form has not been submitted yet."
-#: ../browser/workflow_info_viewlet.pt:9
+#: ./browser/workflow_info_viewlet.pt:9
 msgid "private_msg"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online approved"
-#: ../event.py:239
+#: ./event.py:242
 msgid "subject_dispatched"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online in pending state approval"
-#: ../event.py:207
+#: ./event.py:210
 msgid "subject_pending_approval"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online in pending state dispatch"
-#: ../event.py:223
+#: ./event.py:226
 msgid "subject_pending_dispatch"
 msgstr ""
 
 #. Default: "[Form Online] - Form Online rejected"
-#: ../event.py:255
+#: ./event.py:258
 msgid "subject_rejected"
 msgstr ""
 
